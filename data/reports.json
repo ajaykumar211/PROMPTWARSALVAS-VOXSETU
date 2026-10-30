@@ -1,0 +1,2705 @@
+[
+  {
+    "id": "rep-1793349093720-wo4k",
+    "trackingCode": "VS-53YPL",
+    "originalText": "test pothole",
+    "originalLanguage": "en",
+    "summary_en": "test pothole...",
+    "summary_user": "test pothole...",
+    "category": "Road damage",
+    "lat": 12.91,
+    "lon": 74.85,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Rule-based estimate pending detailed inspection."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Assumed moderate urban pedestrian and vehicle impact."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Standard municipal zone."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Initial submission baseline."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Unspecified duration; standard priority assigned."
+      }
+    },
+    "priorityScore": 53,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-31T08:31:33.720Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-30T08:31:33.720Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": false,
+    "isFallbackAi": true,
+    "createdAt": "2026-10-30T08:31:33.720Z"
+  },
+  {
+    "id": "rep-1793349055525-2ub2",
+    "trackingCode": "VS-8YET5",
+    "originalText": "Broken drain cover on Hampankatta main road",
+    "originalLanguage": "en",
+    "summary_en": "Broken drain cover on Hampankatta main road...",
+    "summary_user": "Broken drain cover on Hampankatta main road...",
+    "category": "Waterlogging",
+    "lat": 12.9141,
+    "lon": 74.856,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Rule-based estimate pending detailed inspection."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Assumed moderate urban pedestrian and vehicle impact."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Standard municipal zone."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Initial submission baseline."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Unspecified duration; standard priority assigned."
+      }
+    },
+    "priorityScore": 53,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-31T08:30:55.525Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-30T08:30:55.525Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": false,
+    "isFallbackAi": true,
+    "createdAt": "2026-10-30T08:30:55.525Z"
+  },
+  {
+    "id": "rep-seed-001",
+    "trackingCode": "VS-9M2K1",
+    "originalText": "Open manhole near St. Aloysius School gate on Light House Hill Road. No barricade or warning sign. School kids walking right next to it.",
+    "originalLanguage": "en",
+    "summary_en": "Open manhole without barricades directly outside school gate.",
+    "summary_user": "Open manhole without barricades directly outside school gate.",
+    "category": "Drainage",
+    "lat": 12.9153,
+    "lon": 74.8545,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Deep open chamber posing severe fall and fatality hazard for school children."
+      },
+      "peopleAffected": {
+        "score": 5,
+        "reason": "Hundreds of students and parents pass this gate daily."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "Directly in front of a primary school gate."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Cover was reportedly dislodged during yesterday evening maintenance."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Uncovered for over 18 hours with morning school rush approaching."
+      }
+    },
+    "priorityScore": 95,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Drainage",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 1,
+    "affectedCount": 14,
+    "targetDueAt": "2026-10-29T21:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T17:00:00.000Z"
+      },
+      {
+        "status": "Assigned",
+        "note": "Received high urgency report, safety barricade team dispatched immediately.",
+        "citizenMessage": "Our drainage safety team has been alerted and is rushing to secure the manhole.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T18:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T17:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-002",
+    "trackingCode": "VS-4X8L9",
+    "originalText": "Live electric wire hanging down from transformer pole right in front of Central Market vegetable stalls, sparking in the wind.",
+    "originalLanguage": "en",
+    "summary_en": "Live hanging electric wire sparking near busy market stalls.",
+    "summary_user": "Live hanging electric wire sparking near busy market stalls.",
+    "category": "Streetlight",
+    "lat": 12.911,
+    "lon": 74.8582,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "High-voltage exposed cable with active sparking in pedestrian path."
+      },
+      "peopleAffected": {
+        "score": 5,
+        "reason": "Crowded vegetable market with thousands of daily shoppers."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "Dense commercial market area."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "First report from this transformer pole."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Sparking intensified following gusty afternoon winds."
+      }
+    },
+    "priorityScore": 92,
+    "priorityBand": "critical",
+    "status": "In progress",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 1,
+    "affectedCount": 22,
+    "targetDueAt": "2026-10-29T22:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T18:00:00.000Z"
+      },
+      {
+        "status": "In progress",
+        "note": "Feed cut-off initiated at sub-station 4B, line repair crew on-site.",
+        "citizenMessage": "Power to the line was disconnected and our repair crew is on-site fixing the wire.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T19:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T18:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-003",
+    "trackingCode": "VS-6P1R3",
+    "originalText": "Flooded railway underpass at Padil with 3 feet deep stagnant muddy water. Auto rickshaw broke down inside, pedestrian walk submerged.",
+    "originalLanguage": "en",
+    "summary_en": "Flooded underpass with 3ft water, auto stranded and footway submerged.",
+    "summary_user": "Flooded underpass with 3ft water, auto stranded and footway submerged.",
+    "category": "Waterlogging",
+    "lat": 12.9196,
+    "lon": 74.8621,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Submerged vehicles and risk of drowning/electrocution in deep turbid water."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Major arterial connection between industrial zone and city center."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Key transportation bottleneck underpass."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Known waterlogging sink during every spell of rainfall."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Water level rising as runoff continues from adjacent hill slope."
+      }
+    },
+    "priorityScore": 89,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Roads",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 1,
+    "affectedCount": 19,
+    "targetDueAt": "2026-10-29T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T16:00:00.000Z"
+      },
+      {
+        "status": "Assigned",
+        "note": "Dewatering pump truck 12 assigned to Padil underpass.",
+        "citizenMessage": "A dewatering pump truck has been assigned and is heading to the underpass.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T18:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T16:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-004",
+    "trackingCode": "VS-HOT-01",
+    "originalText": "Heavy waterlogging outside City Centre Mall on K.S. Rao Road. Water entering shop fronts.",
+    "originalLanguage": "en",
+    "summary_en": "Heavy waterlogging outside shopping mall entering storefronts.",
+    "summary_user": "Heavy waterlogging outside shopping mall entering storefronts.",
+    "category": "Waterlogging",
+    "lat": 12.9161,
+    "lon": 74.857,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Slippery pedestrian walkway and traffic slowing."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Busy commercial street with dozens of commercial shops."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Main commercial hub and mall entrance."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Repeated ponding whenever rainfall exceeds 10mm."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Water has accumulated for 4 hours."
+      }
+    },
+    "priorityScore": 72,
+    "priorityBand": "critical",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 1,
+    "affectedCount": 8,
+    "targetDueAt": "2026-10-30T14:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T14:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T14:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-005",
+    "trackingCode": "VS-HOT-02",
+    "originalText": "Stormwater drain completely choked with plastic bottles and debris near K.S. Rao Road junction.",
+    "originalLanguage": "en",
+    "summary_en": "Stormwater drain completely choked with plastic debris near junction.",
+    "summary_user": "Stormwater drain completely choked with plastic debris near junction.",
+    "category": "Drainage",
+    "lat": 12.9163,
+    "lon": 74.8572,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Blockage causes immediate backflow and flooding onto roadway."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Affects drainage for the entire junction."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Major intersection."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Frequent dumping of commercial waste into culvert."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Backflow expanding across two lanes."
+      }
+    },
+    "priorityScore": 72,
+    "priorityBand": "critical",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 6,
+    "targetDueAt": "2026-10-29T19:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T15:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T15:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-006",
+    "trackingCode": "VS-HOT-03",
+    "originalText": "Severe asphalt erosion and deep trench created by water overflow on K.S. Rao Road near junction.",
+    "originalLanguage": "en",
+    "summary_en": "Deep road trench formed by water erosion near main junction.",
+    "summary_user": "Deep road trench formed by water erosion near main junction.",
+    "category": "Road damage",
+    "lat": 12.916,
+    "lon": 74.8571,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Hidden trench in dirty water causing two-wheeler skids."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "High traffic density route with frequent scooter traffic."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Busy central junction."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Patched last month but washed away again."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Trench widening as heavy buses brake over the hole."
+      }
+    },
+    "priorityScore": 77,
+    "priorityBand": "critical",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 11,
+    "targetDueAt": "2026-10-29T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T16:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T16:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-007",
+    "trackingCode": "VS-HOT-04",
+    "originalText": "ಕೆ.ಎಸ್. ರಾವ್ ರಸ್ತೆಯ ಅಂಗಡಿಗಳ ಮುಂದೆ ಚರಂಡಿ ಕಟ್ಟಿಕೊಂಡು ಕೊಳಚೆ ನೀರು ಹರಿಯುತ್ತಿದೆ.",
+    "originalLanguage": "kn",
+    "summary_en": "Drain blocked in front of shops on K.S. Rao Road with filthy sewage overflow.",
+    "summary_user": "ಕೆ.ಎಸ್. ರಾವ್ ರಸ್ತೆಯಲ್ಲಿ ಚರಂಡಿ ಕಟ್ಟಿಕೊಂಡು ನೀರು ರಸ್ತೆಗೆ ಬರುತ್ತಿದೆ.",
+    "category": "Drainage",
+    "lat": 12.9162,
+    "lon": 74.8573,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Foul contaminated wastewater flowing into food stalls."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Pedestrians and diners in market street."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Food establishment cluster."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Regular occurrence during monsoon spells."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Odor and pool expanding continuously."
+      }
+    },
+    "priorityScore": 68,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 5,
+    "targetDueAt": "2026-10-30T12:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T12:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T12:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-008",
+    "trackingCode": "VS-HOT-05",
+    "originalText": "Water ponding 1 foot deep right at bus stop on K.S. Rao road, commuters forced to stand in traffic lane.",
+    "originalLanguage": "en",
+    "summary_en": "One-foot water ponding at bus stop forcing commuters onto traffic lane.",
+    "summary_user": "One-foot water ponding at bus stop forcing commuters onto traffic lane.",
+    "category": "Waterlogging",
+    "lat": 12.9164,
+    "lon": 74.857,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Commuters standing in vehicle path due to flooded shelter."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Hundreds waiting for city buses."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Public transit bus stop."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Drain inlet is raised higher than the curb."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Unchanged for 5 hours."
+      }
+    },
+    "priorityScore": 75,
+    "priorityBand": "critical",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 9,
+    "targetDueAt": "2026-10-29T17:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T13:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T13:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-009",
+    "trackingCode": "VS-KN-01",
+    "originalText": "ಹಂಪನಕಟ್ಟಾ ಸಿಗ್ನಲ್ ಬಳಿ ಬೀದಿ ದೀಪಗಳು ಕಳೆದ ಮೂರು ದಿನಗಳಿಂದ ಬೆಳಗುತ್ತಿಲ್ಲ. ರಾತ್ರಿ ವೇಳೆ ಕತ್ತಲಲ್ಲಿ ಅಪಘಾತಗಳು ಸಂಭವಿಸುತ್ತಿವೆ.",
+    "originalLanguage": "kn",
+    "summary_en": "Streetlights not working for 3 days near Hampankatta signal causing nighttime accidents.",
+    "summary_user": "ಹಂಪನಕಟ್ಟಾ ಸಿಗ್ನಲ್ ಬಳಿ ಬೀದಿ ದೀಪಗಳು ಕಳೆದ ಮೂರು ದಿನಗಳಿಂದ ಉರಿಯುತ್ತಿಲ್ಲ.",
+    "category": "Streetlight",
+    "lat": 12.9131,
+    "lon": 74.8552,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Pitch dark intersection leading to vehicular collisions."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Major city intersection with round-the-clock traffic."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Hampankatta traffic signal junction."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Bulb/feeder trip over recent weekend."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Dark for 72 continuous hours."
+      }
+    },
+    "priorityScore": 72,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 7,
+    "targetDueAt": "2026-10-28T12:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-28T08:00:00.000Z"
+      },
+      {
+        "status": "Assigned",
+        "note": "Control box relay fault identified, replacement timer ordered.",
+        "citizenMessage": "Our electrical team identified a relay fault and is installing a replacement part today.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T08:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-28T08:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-010",
+    "trackingCode": "VS-KN-02",
+    "originalText": "ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆ ಎದುರು ಕಸದ ತೊಟ್ಟಿ ತುಂಬಿ ರಸ್ತೆಯ ಮೇಲೆ ಹರಡಿದೆ. ವಿಪರೀತ ದುರ್ವಾಸನೆ ಮತ್ತು ನೊಣಗಳು ಹರಡುತ್ತಿವೆ.",
+    "originalLanguage": "kn",
+    "summary_en": "Overflowing garbage bin spilling onto road opposite Government Hospital causing disease vector risk.",
+    "summary_user": "ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆ ಎದುರು ಕಸದ ತೊಟ್ಟಿ ತುಂಬಿ ರಸ್ತೆಗೆ ಚೆಲ್ಲಿದೆ.",
+    "category": "Garbage",
+    "lat": 12.9119,
+    "lon": 74.8578,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Medical/organic waste decomposing right beside hospital gate."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Patients, visitors, and hospital staff walking past."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "District Government Hospital entrance."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Bin truck missed collection for two cycles."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Dogs and cattle scattering waste into hospital lane."
+      }
+    },
+    "priorityScore": 87,
+    "priorityBand": "critical",
+    "status": "In progress",
+    "assignedTeam": "Sanitation",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 1,
+    "affectedCount": 16,
+    "targetDueAt": "2026-10-29T06:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T02:00:00.000Z"
+      },
+      {
+        "status": "In progress",
+        "note": "Compact loader sent for clearance; deep sanitization ordered.",
+        "citizenMessage": "Sanitation vehicle is on site clearing the garbage and sanitizing the area.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T18:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T02:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-011",
+    "trackingCode": "VS-HI-01",
+    "originalText": "सेंट्रल बस स्टैंड के पास मुख्य सड़क पर 2 फीट गहरा गड्ढा है। कल रात एक बाइक सवार गिरकर घायल हो गया।",
+    "originalLanguage": "hi",
+    "summary_en": "Two-foot deep pothole on main road near Central Bus Stand; motorcyclist injured last night.",
+    "summary_user": "सेंट्रल बस स्टैंड के पास मुख्य सड़क पर गहरा गड्ढा है।",
+    "category": "Road damage",
+    "lat": 12.9146,
+    "lon": 74.8535,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Severe pothole already caused serious personal injury."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Central bus terminal route carrying heavy transit vehicles."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Bus station exit lane."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Patch failed after recent heavy monsoon showers."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Edge crumbled into a steep crater."
+      }
+    },
+    "priorityScore": 86,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Roads",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 1,
+    "affectedCount": 12,
+    "targetDueAt": "2026-10-29T10:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T06:00:00.000Z"
+      },
+      {
+        "status": "Assigned",
+        "note": "Cold mix asphalt team assigned for rapid morning patch.",
+        "citizenMessage": "Our road repair team has been assigned to patch the pothole with rapid asphalt.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T15:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T06:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-012",
+    "trackingCode": "VS-HI-02",
+    "originalText": "सब्जी मंडी के पीछे नाले की दीवार टूट गई है और गंदा पानी दुकानों की तरफ बह रहा है।",
+    "originalLanguage": "hi",
+    "summary_en": "Drain retaining wall collapsed behind vegetable market, sewage flooding towards stalls.",
+    "summary_user": "सब्जी मंडी के पीछे नाले की दीवार टूट गई है।",
+    "category": "Drainage",
+    "lat": 12.9106,
+    "lon": 74.8588,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Structural collapse of drain masonry; contamination of produce."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Local market vendors and nearby residents."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Food market zone."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Recent masonry crack expanded."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Earth slipping into the channel."
+      }
+    },
+    "priorityScore": 59,
+    "priorityBand": "high",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 4,
+    "targetDueAt": "2026-10-29T22:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-28T22:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-28T22:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-013",
+    "trackingCode": "VS-HI-03",
+    "originalText": "नेहरू मैदान के पास स्ट्रीट लाइट का खंभा झुक गया है और कभी भी गिर सकता है।",
+    "originalLanguage": "hi",
+    "summary_en": "Streetlight pole tilted precariously near Nehru Maidan and could fall.",
+    "summary_user": "नेहरू मैदान के पास स्ट्रीट लाइट का खंभा खतरनाक रूप से झुक गया है।",
+    "category": "Streetlight",
+    "lat": 12.9179,
+    "lon": 74.8541,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Heavy iron pole at risk of falling on road or pedestrians."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Walkers and players visiting sports ground."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Public park and playground perimeter."
+      },
+      "recurrence": {
+        "score": 1,
+        "reason": "Base hit by vehicle during night."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Tilt angle visibly increasing under tension."
+      }
+    },
+    "priorityScore": 62,
+    "priorityBand": "high",
+    "status": "Assigned",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 6,
+    "targetDueAt": "2026-10-30T12:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T12:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T12:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-014",
+    "trackingCode": "VS-TE-01",
+    "originalText": "గాంధీ పార్క్ ఎదురుగా ఉన్న డ్రైనేజీ మూత పగిలిపోయింది. వృద్ధులు మరియు పిల్లలు నడిచే దారిలో ఇది చాలా ప్రమాదకరం.",
+    "originalLanguage": "te",
+    "summary_en": "Drain slab cracked and broken in front of Gandhi Park, endangering elderly and children.",
+    "summary_user": "గాంధీ పార్క్ ఎదురుగా డ్రైనేజీ మూత పగిలిపోయింది.",
+    "category": "Drainage",
+    "lat": 12.9159,
+    "lon": 74.8528,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Cracked concrete slab collapsing under foot pressure."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Elderly citizens walking to park."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Directly at public park entrance."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Cracked last week; now broken through."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Fragmented edges widening hole."
+      }
+    },
+    "priorityScore": 67,
+    "priorityBand": "high",
+    "status": "Assigned",
+    "assignedTeam": "Drainage",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 5,
+    "targetDueAt": "2026-10-30T04:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T04:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T04:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-015",
+    "trackingCode": "VS-TE-02",
+    "originalText": "రైల్వే స్టేషన్ రోడ్డులో పెద్ద ఎత్తున వ్యర్థాలు మరియు నిర్మాణ శిధిలాలు రోడ్డుపై పడేశారు. రాకపోకలకు తీవ్ర అంతరాయం.",
+    "originalLanguage": "te",
+    "summary_en": "Construction debris and garbage dumped on Railway Station road blocking traffic lane.",
+    "summary_user": "రైల్వే స్టేషన్ రోడ్డులో నిర్మాణ వ్యర్థాలు మరియు చెత్త వేయబడింది.",
+    "category": "Garbage",
+    "lat": 12.9126,
+    "lon": 74.852,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Concrete debris causing traffic bottlenecks and tire punctures."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Key access route to Mangalore Central station."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Transit corridor."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Illegal nighttime dumping."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Spread over 15 meters along the curb."
+      }
+    },
+    "priorityScore": 63,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 8,
+    "targetDueAt": "2026-10-30T10:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T10:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T10:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-016",
+    "trackingCode": "VS-KN-03",
+    "originalText": "ಕಂಕನಾಡಿ ಮಾರುಕಟ್ಟೆ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಡ್ರೈನೇಜ್ ಬ್ಲಾಕ್ ಆಗಿ ಕೊಳಕು ನೀರು ಇಡೀ ರಸ್ತೆಗೆ ನುಗ್ಗಿದೆ.",
+    "originalLanguage": "kn",
+    "summary_en": "Drainage blockage at Kankanady market junction flooding foul water across road.",
+    "summary_user": "ಕಂಕನಾಡಿ ಮಾರುಕಟ್ಟೆ ಜಂಕ್ಷನ್‌ನಲ್ಲಿ ಕೊಳಚೆ ನೀರು ರಸ್ತೆಗೆ ನುಗ್ಗಿದೆ.",
+    "category": "Drainage",
+    "lat": 12.9096,
+    "lon": 74.8595,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Sanitation and hygiene hazard on commercial walkway."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Market visitors and shopkeepers."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Market zone."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Known blockage point during high tide and rain."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Stagnant wastewater for over 6 hours."
+      }
+    },
+    "priorityScore": 64,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 7,
+    "targetDueAt": "2026-10-30T11:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T11:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T11:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-017",
+    "trackingCode": "VS-DUP-01",
+    "originalText": "Manhole cover missing outside St. Aloysius School gate! Very dangerous for kids.",
+    "originalLanguage": "en",
+    "summary_en": "Missing manhole cover outside St. Aloysius School.",
+    "summary_user": "Missing manhole cover outside St. Aloysius School.",
+    "category": "Drainage",
+    "lat": 12.9154,
+    "lon": 74.8546,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Open manhole near school."
+      },
+      "peopleAffected": {
+        "score": 5,
+        "reason": "School pupils."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "School gate."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Ongoing hazard."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Dangerous."
+      }
+    },
+    "priorityScore": 92,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Drainage",
+    "duplicateOf": "rep-seed-001",
+    "duplicateConfidence": 0.94,
+    "duplicateReason": "Identical location (within 20m of school gate) reporting the same open manhole chamber.",
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-29T22:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T18:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T18:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-018",
+    "trackingCode": "VS-DUP-02",
+    "originalText": "Electric wire sparking near Central Market vegetables, someone could get shocked.",
+    "originalLanguage": "en",
+    "summary_en": "Sparking wire near Central Market vegetable stands.",
+    "summary_user": "Sparking wire near Central Market vegetable stands.",
+    "category": "Streetlight",
+    "lat": 12.9111,
+    "lon": 74.8581,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Electric shock hazard."
+      },
+      "peopleAffected": {
+        "score": 5,
+        "reason": "Market shoppers."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "Vegetable stalls."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Sparking wire."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Live wire."
+      }
+    },
+    "priorityScore": 88,
+    "priorityBand": "critical",
+    "status": "In progress",
+    "assignedTeam": "Electrical",
+    "duplicateOf": "rep-seed-002",
+    "duplicateConfidence": 0.96,
+    "duplicateReason": "Reports the exact same exposed wire dangling from the market transformer.",
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-29T23:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T19:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T19:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-019",
+    "trackingCode": "VS-DUP-03",
+    "originalText": "Padil underpass is completely waterlogged, vehicles cannot pass.",
+    "originalLanguage": "en",
+    "summary_en": "Padil railway underpass flooded, traffic halted.",
+    "summary_user": "Padil railway underpass flooded, traffic halted.",
+    "category": "Waterlogging",
+    "lat": 12.9195,
+    "lon": 74.8622,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Deep water."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Underpass commuters."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Railway underpass."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Flooding."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Stagnant water."
+      }
+    },
+    "priorityScore": 86,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Roads",
+    "duplicateOf": "rep-seed-003",
+    "duplicateConfidence": 0.92,
+    "duplicateReason": "Same railway underpass inundation described at identical coordinates.",
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-29T21:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T17:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T17:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-020",
+    "trackingCode": "VS-DUP-04",
+    "originalText": "K.S. Rao road drain overflow in front of mall, road flooded with dirty water.",
+    "originalLanguage": "en",
+    "summary_en": "Drain overflow outside mall on K.S. Rao road.",
+    "summary_user": "Drain overflow outside mall on K.S. Rao road.",
+    "category": "Waterlogging",
+    "lat": 12.9162,
+    "lon": 74.8569,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Flooded road."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Shoppers and motorists."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Mall street."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Water ponding."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Water spreading."
+      }
+    },
+    "priorityScore": 68,
+    "priorityBand": "high",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": "rep-seed-004",
+    "duplicateConfidence": 0.88,
+    "duplicateReason": "Same flood water accumulation outside City Centre Mall reported 45 minutes apart.",
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-30T15:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T15:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T15:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-021",
+    "trackingCode": "VS-DUP-05",
+    "originalText": "Deep crater on road near bus stand, huge pothole.",
+    "originalLanguage": "en",
+    "summary_en": "Huge pothole crater near central bus stand.",
+    "summary_user": "Huge pothole crater near central bus stand.",
+    "category": "Road damage",
+    "lat": 12.9147,
+    "lon": 74.8536,
+    "factors": {
+      "safetyRisk": {
+        "score": 5,
+        "reason": "Dangerous pothole."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Bus route traffic."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Bus stand exit."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Road crater."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Broken asphalt."
+      }
+    },
+    "priorityScore": 83,
+    "priorityBand": "critical",
+    "status": "Assigned",
+    "assignedTeam": "Roads",
+    "duplicateOf": "rep-seed-011",
+    "duplicateConfidence": 0.91,
+    "duplicateReason": "Refers to the same hazardous road cavity near the Central Bus Stand.",
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-29T13:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T09:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T09:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-022",
+    "trackingCode": "VS-DUP-06",
+    "originalText": "Garbage pile smelling bad outside district hospital.",
+    "originalLanguage": "en",
+    "summary_en": "Foul garbage pile outside hospital entrance.",
+    "summary_user": "Foul garbage pile outside hospital entrance.",
+    "category": "Garbage",
+    "lat": 12.9118,
+    "lon": 74.8579,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Medical/organic waste."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Hospital visitors."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "Hospital gate."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Uncollected refuse."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Foul odor."
+      }
+    },
+    "priorityScore": 84,
+    "priorityBand": "critical",
+    "status": "In progress",
+    "assignedTeam": "Sanitation",
+    "duplicateOf": "rep-seed-010",
+    "duplicateConfidence": 0.89,
+    "duplicateReason": "Duplicate notification for uncollected waste mound outside Government Hospital.",
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-29T09:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T05:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T05:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-023",
+    "trackingCode": "VS-8B4K2",
+    "originalText": "Broken concrete drain slab on Car Street near Temple square, pedestrians tripping.",
+    "originalLanguage": "en",
+    "summary_en": "Broken drain slab causing tripping hazard near Temple square.",
+    "summary_user": "Broken drain slab causing tripping hazard near Temple square.",
+    "category": "Drainage",
+    "lat": 12.9171,
+    "lon": 74.8525,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Tripping hazard for pedestrians."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Devotees visiting temple."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Temple pedestrian walkway."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Broken during delivery unloading."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Static defect."
+      }
+    },
+    "priorityScore": 55,
+    "priorityBand": "high",
+    "status": "Resolved",
+    "assignedTeam": "Drainage",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 4,
+    "targetDueAt": "2026-10-27T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-26T20:00:00.000Z"
+      },
+      {
+        "status": "Resolved",
+        "note": "Pre-cast reinforced slab replaced and leveled flush with pavement.",
+        "citizenMessage": "A new reinforced concrete slab has been installed and leveled safely.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-28T20:00:00.000Z"
+      }
+    ],
+    "resolutionNote": "Repaired and verified in field.",
+    "citizenConfirmed": true,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-26T20:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-024",
+    "trackingCode": "VS-2W9M7",
+    "originalText": "Streetlights flickering continuously and going dark intermittently on Kadri Park road.",
+    "originalLanguage": "en",
+    "summary_en": "Flickering streetlights on Kadri Park road creating dark spots.",
+    "summary_user": "Flickering streetlights on Kadri Park road creating dark spots.",
+    "category": "Streetlight",
+    "lat": 12.9186,
+    "lon": 74.8592,
+    "factors": {
+      "safetyRisk": {
+        "score": 2,
+        "reason": "Dim lighting for evening joggers and women walking."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Park visitors."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Park promenade."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Loose contact in luminaire arm."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Happening every evening."
+      }
+    },
+    "priorityScore": 48,
+    "priorityBand": "medium",
+    "status": "Resolved",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 3,
+    "targetDueAt": "2026-10-28T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-25T20:00:00.000Z"
+      },
+      {
+        "status": "Resolved",
+        "note": "Capacitors replaced across 4 poles on Kadri road.",
+        "citizenMessage": "Our team replaced the faulty capacitors and all lights are now burning bright.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-27T20:00:00.000Z"
+      }
+    ],
+    "resolutionNote": "Repaired and verified in field.",
+    "citizenConfirmed": true,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-25T20:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-025",
+    "trackingCode": "VS-7V3Q5",
+    "originalText": "Construction debris dumped overnight on footpath near Bunts Hostel circle.",
+    "originalLanguage": "en",
+    "summary_en": "Construction debris dumped on footpath forcing pedestrians onto roadway.",
+    "summary_user": "Construction debris dumped on footpath forcing pedestrians onto roadway.",
+    "category": "Garbage",
+    "lat": 12.9151,
+    "lon": 74.8585,
+    "factors": {
+      "safetyRisk": {
+        "score": 2,
+        "reason": "Pedestrians walking in vehicle lanes."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "High foot-traffic student junction."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Hostel and college area."
+      },
+      "recurrence": {
+        "score": 1,
+        "reason": "One-off illegal dump."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Debris piles blocking 10 meters."
+      }
+    },
+    "priorityScore": 45,
+    "priorityBand": "medium",
+    "status": "In progress",
+    "assignedTeam": "Sanitation",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 7,
+    "targetDueAt": "2026-10-31T16:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-28T16:00:00.000Z"
+      },
+      {
+        "status": "In progress",
+        "note": "JCB booked for 11 PM night clearance.",
+        "citizenMessage": "A loader vehicle has been scheduled to remove the debris tonight.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T10:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-28T16:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-026",
+    "trackingCode": "VS-5T1N8",
+    "originalText": "Pothole patch broke open again on Balmatta road near petrol pump after 2 days of rain.",
+    "originalLanguage": "en",
+    "summary_en": "Reopened pothole on Balmatta road causing vehicle jolts.",
+    "summary_user": "Pothole patch broke open again on Balmatta road near petrol pump.",
+    "category": "Road damage",
+    "lat": 12.9123,
+    "lon": 74.8565,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Sudden braking by cars in rain."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Primary commuter artery."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Busy commercial road."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Failed cold-mix patch."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Washed out again."
+      }
+    },
+    "priorityScore": 67,
+    "priorityBand": "high",
+    "status": "Reopened",
+    "assignedTeam": "Roads",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 15,
+    "targetDueAt": "2026-10-28T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-27T20:00:00.000Z"
+      },
+      {
+        "status": "Reopened",
+        "note": "Citizen reported cold mix failure. Reopening ticket for hot-mix bitumen overlay.",
+        "citizenMessage": "We reopened your report for a permanent hot-mix asphalt repair.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T12:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 1,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-27T20:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-027",
+    "trackingCode": "VS-3Y8J4",
+    "originalText": "Water meter box cover missing in sidewalk near Ladyhill circle, deep hole exposed.",
+    "originalLanguage": "en",
+    "summary_en": "Missing utility box cover leaving opening on sidewalk.",
+    "summary_user": "Missing utility box cover leaving opening on sidewalk.",
+    "category": "Other",
+    "lat": 12.9203,
+    "lon": 74.8542,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Foot trap for unwary pedestrians."
+      },
+      "peopleAffected": {
+        "score": 2,
+        "reason": "Sidewalk foot-traffic."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Near church and school."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Plastic lid broken."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Hole marked with stick."
+      }
+    },
+    "priorityScore": 51,
+    "priorityBand": "high",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 2,
+    "targetDueAt": "2026-10-28T14:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-27T14:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-27T14:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-028",
+    "trackingCode": "VS-1K9F2",
+    "originalText": "Tree branch fallen across low tension power cable on Urwa market lane.",
+    "originalLanguage": "en",
+    "summary_en": "Heavy tree branch resting on low-tension cable on market lane.",
+    "summary_user": "Heavy tree branch resting on low-tension cable on market lane.",
+    "category": "Streetlight",
+    "lat": 12.9191,
+    "lon": 74.8532,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Tension on power cable could snap lines."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Local neighborhood market."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Narrow residential street."
+      },
+      "recurrence": {
+        "score": 1,
+        "reason": "Branch fell during storm."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Cable sagging to 8 feet."
+      }
+    },
+    "priorityScore": 60,
+    "priorityBand": "high",
+    "status": "Assigned",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 6,
+    "targetDueAt": "2026-10-30T01:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T01:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T01:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-029",
+    "trackingCode": "VS-9C4L8",
+    "originalText": "Illegal dumping of fish waste behind fish market on Bunder port road, severe foul smell.",
+    "originalLanguage": "en",
+    "summary_en": "Fish waste dumped behind port road market causing severe stench.",
+    "summary_user": "Fish waste dumped behind port road market causing severe stench.",
+    "category": "Garbage",
+    "lat": 12.9093,
+    "lon": 74.855,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Public health and maggots issue."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Port workers and fishermen."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Dockside commercial area."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Recurring after market closure."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "Extreme odor in midday heat."
+      }
+    },
+    "priorityScore": 65,
+    "priorityBand": "high",
+    "status": "In progress",
+    "assignedTeam": "Sanitation",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 9,
+    "targetDueAt": "2026-10-30T08:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T08:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T08:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-030",
+    "trackingCode": "VS-4B7N1",
+    "originalText": "Large puddle of oily dirty water on road outside mechanic row in Kottara Chowki.",
+    "originalLanguage": "en",
+    "summary_en": "Oily water accumulation outside mechanic shops causing skidding risk.",
+    "summary_user": "Oily water accumulation outside mechanic shops causing skidding risk.",
+    "category": "Waterlogging",
+    "lat": 12.9211,
+    "lon": 74.8575,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Oil on wet road lowers tire grip."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Connecting road commuters."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Automobile workshop area."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Washing bay runoff."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Constant puddle."
+      }
+    },
+    "priorityScore": 54,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 1,
+    "targetDueAt": "2026-10-28T03:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-27T03:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-27T03:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-031",
+    "trackingCode": "VS-6D2H9",
+    "originalText": "Speed breaker white markings completely faded near Milagres Church, vehicles speeding.",
+    "originalLanguage": "en",
+    "summary_en": "Faded speed breaker markings near church creating collision hazard.",
+    "summary_user": "Faded speed breaker markings near church creating collision hazard.",
+    "category": "Road damage",
+    "lat": 12.9133,
+    "lon": 74.8572,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Unmarked humps cause sudden hard braking."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Church and school zone."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "Pedestrian church crossing."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Paint worn away over 6 months."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Completely invisible at night."
+      }
+    },
+    "priorityScore": 63,
+    "priorityBand": "high",
+    "status": "Assigned",
+    "assignedTeam": "Roads",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 8,
+    "targetDueAt": "2026-10-26T06:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-25T06:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-25T06:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-032",
+    "trackingCode": "VS-8S3W5",
+    "originalText": "Sewage overflowing from manhole outside residential apartment in Bejai New Road.",
+    "originalLanguage": "en",
+    "summary_en": "Sewage overflowing from chamber onto residential street.",
+    "summary_user": "Sewage overflowing from chamber onto residential street.",
+    "category": "Drainage",
+    "lat": 12.9176,
+    "lon": 74.86,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Raw sewage overflow and contamination."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "150 apartment residents."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Residential lane."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Main line surcharge."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Continuous trickle."
+      }
+    },
+    "priorityScore": 56,
+    "priorityBand": "high",
+    "status": "In progress",
+    "assignedTeam": "Drainage",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 18,
+    "targetDueAt": "2026-10-30T06:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T06:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T06:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-033",
+    "trackingCode": "VS-2Z7V6",
+    "originalText": "Graffiti defacing public health center exterior wall and direction boards.",
+    "originalLanguage": "en",
+    "summary_en": "Graffiti defacing health center signage and exterior wall.",
+    "summary_user": "Graffiti defacing health center signage and exterior wall.",
+    "category": "Other",
+    "lat": 12.9109,
+    "lon": 74.8538,
+    "factors": {
+      "safetyRisk": {
+        "score": 1,
+        "reason": "Non-safety aesthetic issue."
+      },
+      "peopleAffected": {
+        "score": 2,
+        "reason": "Health clinic visitors."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Primary health clinic."
+      },
+      "recurrence": {
+        "score": 1,
+        "reason": "Occurred over weekend."
+      },
+      "durationOrWorsening": {
+        "score": 1,
+        "reason": "Stable defacement."
+      }
+    },
+    "priorityScore": 33,
+    "priorityBand": "medium",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 0,
+    "targetDueAt": "2026-10-29T07:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-26T07:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-26T07:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-034",
+    "trackingCode": "VS-5P4Q3",
+    "originalText": "Overhead street lamp bracket rusted through and dangling in wind at Mangaladevi.",
+    "originalLanguage": "en",
+    "summary_en": "Rusted street lamp fixture dangling dangerously from pole.",
+    "summary_user": "Rusted street lamp fixture dangling dangerously from pole.",
+    "category": "Streetlight",
+    "lat": 12.9081,
+    "lon": 74.857,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Heavy glass fixture could drop on passersby."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Temple road devotees."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Pilgrim pathway."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Severe coastal corrosion."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Held by wiring alone."
+      }
+    },
+    "priorityScore": 63,
+    "priorityBand": "high",
+    "status": "Assigned",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 5,
+    "targetDueAt": "2026-10-29T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-28T20:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-28T20:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-035",
+    "trackingCode": "VS-7L1K9",
+    "originalText": "Roadside ditch filled with stagnant green water breeding thousands of mosquitoes.",
+    "originalLanguage": "en",
+    "summary_en": "Stagnant unlined ditch breeding mosquitoes near residential block.",
+    "summary_user": "Stagnant unlined ditch breeding mosquitoes near residential block.",
+    "category": "Drainage",
+    "lat": 12.9169,
+    "lon": 74.8612,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Dengue and malaria transmission threat."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Nearby colony residents."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Suburban street."
+      },
+      "recurrence": {
+        "score": 4,
+        "reason": "Never graded properly."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Standing for two weeks."
+      }
+    },
+    "priorityScore": 59,
+    "priorityBand": "high",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 11,
+    "targetDueAt": "2026-10-25T20:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-24T20:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-24T20:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-036",
+    "trackingCode": "VS-1F8M2",
+    "originalText": "Dustbin damaged and wheels missing, waste thrown on ground in front of court building.",
+    "originalLanguage": "en",
+    "summary_en": "Broken public dustbin causing scattered garbage near district court.",
+    "summary_user": "Broken public dustbin causing scattered garbage near district court.",
+    "category": "Garbage",
+    "lat": 12.9139,
+    "lon": 74.8542,
+    "factors": {
+      "safetyRisk": {
+        "score": 2,
+        "reason": "Litter scattering on walkway."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Court visitors and lawyers."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "District court premises."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Bin damaged last week."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Ground heap growing."
+      }
+    },
+    "priorityScore": 48,
+    "priorityBand": "medium",
+    "status": "Resolved",
+    "assignedTeam": "Sanitation",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 4,
+    "targetDueAt": "2026-10-27T00:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-24T00:00:00.000Z"
+      },
+      {
+        "status": "Resolved",
+        "note": "New 240L wheelie bin installed with secure chain lock.",
+        "citizenMessage": "We replaced the damaged dustbin with a brand new wheeled container.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-27T18:00:00.000Z"
+      }
+    ],
+    "resolutionNote": "Repaired and verified in field.",
+    "citizenConfirmed": true,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-24T00:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-037",
+    "trackingCode": "VS-3X5T7",
+    "originalText": "Road cave-in around telecommunication manhole cover on Falnir road.",
+    "originalLanguage": "en",
+    "summary_en": "Road subsidence forming depression around telecom chamber on Falnir road.",
+    "summary_user": "Road subsidence forming depression around telecom chamber on Falnir road.",
+    "category": "Road damage",
+    "lat": 12.9113,
+    "lon": 74.8555,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Depression causes vehicle jolts and wheel misalignment."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Commuters on Falnir route."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Urban road."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Backfill settling after fiber optic trenching."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Sunk by 4 inches."
+      }
+    },
+    "priorityScore": 53,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 3,
+    "targetDueAt": "2026-10-27T22:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-26T22:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-26T22:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-038",
+    "trackingCode": "VS-9H2W4",
+    "originalText": "Water pipeline burst spraying clean drinking water 10 feet into the air on Bendorewell road.",
+    "originalLanguage": "en",
+    "summary_en": "Main drinking water pipeline burst spraying water across Bendorewell road.",
+    "summary_user": "Main drinking water pipeline burst spraying water across Bendorewell road.",
+    "category": "Other",
+    "lat": 12.9129,
+    "lon": 74.8595,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Wasting municipal water and flooding road surface."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Water supply disrupted for 400 households."
+      },
+      "vulnerableLocation": {
+        "score": 3,
+        "reason": "Key junction."
+      },
+      "recurrence": {
+        "score": 1,
+        "reason": "Aging AC pipe rupture."
+      },
+      "durationOrWorsening": {
+        "score": 4,
+        "reason": "High pressure leak flooding street."
+      }
+    },
+    "priorityScore": 60,
+    "priorityBand": "high",
+    "status": "In progress",
+    "assignedTeam": "Drainage",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 25,
+    "targetDueAt": "2026-10-30T15:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T15:00:00.000Z"
+      },
+      {
+        "status": "In progress",
+        "note": "Valve 3 shut off. Excavator clearing trench to replace sleeve.",
+        "citizenMessage": "The water line valve was shut off and our repair crew is replacing the burst pipe section.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-29T18:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T15:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-039",
+    "trackingCode": "VS-4J6P8",
+    "originalText": "Pedestrian signal push button damaged and stuck on red near Jyothi circle.",
+    "originalLanguage": "en",
+    "summary_en": "Pedestrian crossing push-button stuck preventing safe crossing near Jyothi circle.",
+    "summary_user": "Pedestrian crossing push-button stuck preventing safe crossing near Jyothi circle.",
+    "category": "Streetlight",
+    "lat": 12.9143,
+    "lon": 74.8568,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Pedestrians having to cross busy 4-lane road without signal."
+      },
+      "peopleAffected": {
+        "score": 4,
+        "reason": "Major pedestrian crossing hub."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "College and cinema junction."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Push button jammed inside casing."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Stuck since morning."
+      }
+    },
+    "priorityScore": 63,
+    "priorityBand": "high",
+    "status": "Assigned",
+    "assignedTeam": "Electrical",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 6,
+    "targetDueAt": "2026-10-30T05:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-29T05:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-29T05:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-040",
+    "trackingCode": "VS-8M9R1",
+    "originalText": "Mud and loose gravel washed down onto roadway after hill slide near Kadri hills.",
+    "originalLanguage": "en",
+    "summary_en": "Mud and loose gravel deposited across road from hill runoff.",
+    "summary_user": "Mud and loose gravel deposited across road from hill runoff.",
+    "category": "Road damage",
+    "lat": 12.9199,
+    "lon": 74.8605,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Two-wheelers losing balance on slippery gravel layer."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Hill access road."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Curved hillside descent."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Monsoon soil erosion."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Thick layer over 20 meters."
+      }
+    },
+    "priorityScore": 62,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 5,
+    "targetDueAt": "2026-10-29T02:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-28T02:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-28T02:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-041",
+    "trackingCode": "VS-2D5K3",
+    "originalText": "Broken glass and discarded bottles scattered inside children play park in Kadri.",
+    "originalLanguage": "en",
+    "summary_en": "Broken bottles and glass debris scattered across children play park.",
+    "summary_user": "Broken bottles and glass debris scattered across children play park.",
+    "category": "Garbage",
+    "lat": 12.9181,
+    "lon": 74.8588,
+    "factors": {
+      "safetyRisk": {
+        "score": 4,
+        "reason": "Severe laceration danger for barefoot playing children."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "Neighborhood children and families."
+      },
+      "vulnerableLocation": {
+        "score": 5,
+        "reason": "Designated children playground."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Late night vandalism."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Sharp shards in sand pit."
+      }
+    },
+    "priorityScore": 69,
+    "priorityBand": "high",
+    "status": "Resolved",
+    "assignedTeam": "Sanitation",
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 14,
+    "targetDueAt": "2026-10-23T08:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-22T08:00:00.000Z"
+      },
+      {
+        "status": "Resolved",
+        "note": "Play area sand raked twice, 4 bags of debris collected and safely disposed.",
+        "citizenMessage": "Our team thoroughly raked the play park sand and cleared all broken glass.",
+        "by": "Officer (Triage Desk)",
+        "timestamp": "2026-10-25T16:00:00.000Z"
+      }
+    ],
+    "resolutionNote": "Repaired and verified in field.",
+    "citizenConfirmed": true,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-22T08:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-042",
+    "trackingCode": "VS-7F2B9",
+    "originalText": "Water stagnant for 5 days in unpaved alleyway behind commercial street shops.",
+    "originalLanguage": "en",
+    "summary_en": "Stagnant foul water ponding in alleyway behind commercial shops for 5 days.",
+    "summary_user": "Stagnant foul water ponding in alleyway behind commercial shops for 5 days.",
+    "category": "Waterlogging",
+    "lat": 12.9136,
+    "lon": 74.853,
+    "factors": {
+      "safetyRisk": {
+        "score": 2,
+        "reason": "Breeding ground for insects and poor sanitation."
+      },
+      "peopleAffected": {
+        "score": 2,
+        "reason": "Service alleyway workers."
+      },
+      "vulnerableLocation": {
+        "score": 2,
+        "reason": "Commercial back alley."
+      },
+      "recurrence": {
+        "score": 3,
+        "reason": "Depression in unpaved ground."
+      },
+      "durationOrWorsening": {
+        "score": 3,
+        "reason": "Standing water unchanged for 5 days."
+      }
+    },
+    "priorityScore": 45,
+    "priorityBand": "medium",
+    "status": "Under review",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 2,
+    "targetDueAt": "2026-10-27T15:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-24T15:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-24T15:00:00.000Z"
+  },
+  {
+    "id": "rep-seed-043",
+    "trackingCode": "VS-6T8X2",
+    "originalText": "Loose curb stones displaced by turning trucks near Ladyhill school bus bay.",
+    "originalLanguage": "en",
+    "summary_en": "Heavy granite curb stones dislodged into vehicle lane near school bus bay.",
+    "summary_user": "Heavy granite curb stones dislodged into vehicle lane near school bus bay.",
+    "category": "Road damage",
+    "lat": 12.9206,
+    "lon": 74.8548,
+    "factors": {
+      "safetyRisk": {
+        "score": 3,
+        "reason": "Vehicles hitting 50kg granite curb in darkness."
+      },
+      "peopleAffected": {
+        "score": 3,
+        "reason": "School buses and morning traffic."
+      },
+      "vulnerableLocation": {
+        "score": 4,
+        "reason": "School bus bay."
+      },
+      "recurrence": {
+        "score": 2,
+        "reason": "Sharp turn radius."
+      },
+      "durationOrWorsening": {
+        "score": 2,
+        "reason": "Three blocks lying flat in road."
+      }
+    },
+    "priorityScore": 59,
+    "priorityBand": "high",
+    "status": "Submitted",
+    "assignedTeam": null,
+    "duplicateOf": null,
+    "duplicateConfidence": null,
+    "duplicateReason": null,
+    "linkedCount": 0,
+    "affectedCount": 4,
+    "targetDueAt": "2026-10-29T14:00:00.000Z",
+    "statusHistory": [
+      {
+        "status": "Submitted",
+        "note": "Citizen report received through VoxSetu web app.",
+        "citizenMessage": "Your report was received and analyzed by our AI triage system.",
+        "by": "System",
+        "timestamp": "2026-10-28T14:00:00.000Z"
+      }
+    ],
+    "resolutionNote": null,
+    "citizenConfirmed": false,
+    "reopenCount": 0,
+    "suspectedSpam": false,
+    "isSample": true,
+    "createdAt": "2026-10-28T14:00:00.000Z"
+  }
+]
