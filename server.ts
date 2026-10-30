@@ -1897,8 +1897,8 @@ async function startServer() {
 
     // Handle WebSocket upgrades for Vite HMR
     server.on('upgrade', (req, socket, head) => {
-      // Route HMR traffic to Vite. We check for /@vite/hmr which is configured in vite.config.ts
-      if (req.url && (req.url.includes('/@vite/hmr') || req.url.startsWith('/@vite'))) {
+      // Standard Vite HMR paths or root
+      if (req.url && (req.url.startsWith('/@vite') || req.url === '/')) {
         vite.ws.handleUpgrade(req, socket, head);
       }
     });
