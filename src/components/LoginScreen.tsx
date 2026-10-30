@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SupportedLang } from '../types/index.ts';
 import { t, LANGS, setLanguage } from '../utils/i18n.ts';
-import { Globe, Eye, EyeOff, AlertCircle, ArrowLeft, KeyRound, Info, X } from 'lucide-react';
+import { Globe, Eye, EyeOff, AlertCircle, ArrowLeft, KeyRound, Info, X, RefreshCw } from 'lucide-react';
 
 interface LoginScreenProps {
   lang: SupportedLang;
@@ -28,6 +28,25 @@ export function LoginScreen({
   const [error, setError] = useState<string | null>(initialError || null);
   const [capsLockActive, setCapsLockActive] = useState(false);
   const [showForgotDialog, setShowForgotDialog] = useState(false);
+  const [serverStatus, setServerStatus] = useState<'checking' | 'online' | 'offline'>('checking');
+
+  useEffect(() => {
+    checkServer();
+  }, []);
+
+  const checkServer = async () => {
+    setServerStatus('checking');
+    try {
+      const res = await fetch('/api/status');
+      if (res.ok) {
+        setServerStatus('online');
+      } else {
+        setServerStatus('offline');
+      }
+    } catch {
+      setServerStatus('offline');
+    }
+  };
 
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,12 +81,21 @@ export function LoginScreen({
       if (res.ok) {
         const user = await res.json();
         onLoginSuccess(user);
-      } else if (res.status === 429) {
-        setError(t(lang, 'too_many_attempts'));
-      } else if (res.status === 401) {
-        setError(t(lang, 'invalid_login'));
       } else {
-        setError('Server error during sign in. Please try again.');
+        const status = res.status;
+        let msg = 'Server error during sign in.';
+        try {
+          const errData = await res.json();
+          msg = errData.error || msg;
+        } catch { /* ignore */ }
+
+        if (status === 429) {
+          setError(t(lang, 'too_many_attempts'));
+        } else if (status === 401) {
+          setError(t(lang, 'invalid_login'));
+        } else {
+          setError(`${msg} (Status: ${status})`);
+        }
       }
     } catch (err: any) {
       console.error('Login fetch failed:', err);
@@ -281,6 +309,30 @@ export function LoginScreen({
                 </p>
               )}
             </div>
+
+            {/* Server Status Indicator */}
+            {serverStatus !== 'online' && (
+              <div className={`flex items-center justify-between rounded-lg px-3 py-2 text-[10px] font-bold uppercase transition ${
+                serverStatus === 'checking' ? 'bg-blue-50 text-blue-700' : 'bg-red-50 text-red-700'
+              }`}>
+                <div className="flex items-center gap-2">
+                  <span className={`h-2 w-2 rounded-full ${
+                    serverStatus === 'checking' ? 'bg-blue-400 animate-pulse' : 'bg-red-500'
+                  }`} />
+                  <span>{serverStatus === 'checking' ? 'Connecting to auth server...' : 'Auth server unreachable'}</span>
+                </div>
+                {serverStatus === 'offline' && (
+                  <button
+                    type="button"
+                    onClick={checkServer}
+                    className="flex items-center gap-1 text-[#1F7A8C] hover:underline"
+                  >
+                    <RefreshCw className="h-3 w-3" />
+                    Retry
+                  </button>
+                )}
+              </div>
+            )}
 
             {/* Error Message */}
             {error && (

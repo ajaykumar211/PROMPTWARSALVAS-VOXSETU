@@ -1070,22 +1070,34 @@ app.post('/api/reports', async (req: Request, res: Response) => {
 app.post('/api/auth/login', (req: Request, res: Response) => {
   const ip = req.ip || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
+  const { email, password } = req.body;
+
+  console.log(`[Auth] Login attempt from ${ip} for ${email}`);
+
+  if (!email || !password) {
+    console.warn(`[Auth] Missing fields in login from ${ip}`);
+    res.status(400).json({ error: 'missing_fields' });
+    return;
+  }
+
+  const isDemo = email.trim().toLowerCase() === DEMO_EMAIL;
 
   let record = loginAttemptsMap.get(ip);
-  if (record && record.lockUntil > now) {
+  if (record && record.lockUntil > now && !isDemo) {
     const waitSecs = Math.ceil((record.lockUntil - now) / 1000);
+    console.warn(`[Auth] IP ${ip} is locked until ${record.lockUntil}`);
     res.status(429).json({ error: 'too_many_attempts', retryAfter: waitSecs });
     return;
   }
 
-  const { email, password } = req.body;
-  if (!email || !password || email.trim().toLowerCase() !== DEMO_EMAIL || !verifyPassword(password)) {
+  if (!isDemo || !verifyPassword(password)) {
+    console.warn(`[Auth] Invalid login for ${email} from ${ip}`);
     if (!record) {
       record = { attempts: 1, lockUntil: 0 };
     } else {
       record.attempts += 1;
     }
-    if (record.attempts >= 5) {
+    if (record.attempts >= 5 && !isDemo) {
       record.lockUntil = now + 60 * 1000;
       record.attempts = 0;
       loginAttemptsMap.set(ip, record);
@@ -1099,17 +1111,12 @@ app.post('/api/auth/login', (req: Request, res: Response) => {
 
   loginAttemptsMap.delete(ip);
 
-  console.log(`[Auth] Authority login attempt: ${email} from ${ip}`);
+  console.log(`[Auth] Authority login successful: ${email} from ${ip}`);
   const token = signSession(DEMO_EMAIL);
 
-  res.cookie('voxsetu_session', token, {
-    httpOnly: true,
-    sameSite: 'none',
-    secure: true,
-    maxAge: 8 * 3600 * 1000,
-  });
-
-  console.log(`[Auth] Authority login successful: ${email}`);
+  // Set the cookie with explicit headers for maximum compatibility
+  res.setHeader('Set-Cookie', `voxsetu_session=${token}; Path=/; HttpOnly; SameSite=None; Secure; Max-Age=${8 * 3600}`);
+  
   res.json({ success: true, email: DEMO_EMAIL, role: 'authority' });
 });
 
@@ -1126,6 +1133,10 @@ app.get('/api/auth/me', (req: Request, res: Response) => {
     return;
   }
   res.json({ email: session.email, role: session.role });
+});
+
+app.get('/api/status', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: Date.now() });
 });
 
 // Citizen Authentication API Endpoints
