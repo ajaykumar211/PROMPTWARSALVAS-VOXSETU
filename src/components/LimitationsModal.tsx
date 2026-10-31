@@ -84,6 +84,8 @@ export const LimitationsModal: React.FC<LimitationsModalProps> = ({
               <li><strong className="text-[#14213D]">Municipal dispatch:</strong> Assigning a department (Roads, Drainage, Electrical, Sanitation) simulates dispatch within the app.</li>
               <li><strong className="text-[#14213D]">Target resolution times:</strong> Durations (4h, 24h, 72h, 7d) are labeled sample targets for prioritization benchmarking.</li>
               <li><strong className="text-[#14213D]">Notifications:</strong> In-app live stream and bell counter; no SMS or email gateways are connected.</li>
+              <li><strong className="text-[#14213D]">Synthetic Zones:</strong> The ward boundaries ("Zones A-E") are sample rectangles for this demo. Real deployment would load official ward shapefiles.</li>
+              <li><strong className="text-[#14213D]">Locality names:</strong> Reverse-geocoded addresses can be missing or approximate based on available map providers.</li>
               <li><strong className="text-[#14213D]">Storage reset:</strong> Reports are saved locally; server restarts may reset back to seed data.</li>
             </ul>
           </div>
@@ -96,6 +98,7 @@ export const LimitationsModal: React.FC<LimitationsModalProps> = ({
             </h3>
             <ul className="mt-2 list-disc space-y-1.5 pl-5 text-xs sm:text-sm text-[#5A6279]">
               <li><strong className="text-[#14213D]">Priority & duplicate misjudgment:</strong> AI can misinterpret ambiguous text or photos. Therefore, municipal officers retain full manual control to confirm or unlink duplicates and reassign teams.</li>
+              <li><strong className="text-[#14213D]">Classification Overrides:</strong> Officers can manually change the AI-detected category (e.g., from 'Garbage' to 'Drainage') with a recorded reason. The system preserves the original AI suggestion for audit trails.</li>
               <li><strong className="text-[#14213D]">Machine translation nuance:</strong> Translations between English, Hindi, Kannada, and Telugu are machine-generated and may lack local slang nuance. The authority panel always displays the citizen's original verbatim text alongside English.</li>
               <li><strong className="text-[#14213D]">Reporting bias vs true problems:</strong> Hotspots highlight where active smartphone citizens report, which may overlook underrepresented neighborhoods with fewer submissions.</li>
               <li><strong className="text-[#14213D]">Hotspot parameters:</strong> The 300-meter neighbor threshold and minimum 3 reports are chosen design parameters; wide clusters exceeding 700m are flagged for human review.</li>

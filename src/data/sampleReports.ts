@@ -1,5 +1,6 @@
 import { Report } from '../types/index.ts';
 import { calculatePriorityScore, determinePriorityBand, computeTargetDueDate } from '../utils/priority.ts';
+import { getZoneForPoint } from '../utils/geo.ts';
 
 export function generateSampleReports(): Report[] {
   const baseLat = 12.9141;
@@ -1033,6 +1034,14 @@ export function generateSampleReports(): Report[] {
 
     const parentId = s.duplicateOfTrackingCode ? trackingToId[s.duplicateOfTrackingCode] || null : null;
 
+    const zoneId = getZoneForPoint(Number((baseLat + s.offsetLat).toFixed(6)), Number((baseLon + s.offsetLon).toFixed(6)));
+    let locality = 'Mangaluru Central';
+    const plat = baseLat + s.offsetLat;
+    const plon = baseLon + s.offsetLon;
+    if (plat > 12.92) locality = 'Bejai / Kadri Area';
+    else if (plat < 12.91) locality = 'Pandeshwar / Bunder Port';
+    else if (plon > 74.86) locality = 'Kadri Hills';
+
     reports.push({
       id,
       trackingCode: s.trackingCode,
@@ -1042,6 +1051,9 @@ export function generateSampleReports(): Report[] {
       summary_en: s.summary_en,
       summary_user: s.summary_user,
       category: s.category,
+      aiCategory: s.category,
+      zoneId,
+      locality,
       lat: Number((baseLat + s.offsetLat).toFixed(6)),
       lon: Number((baseLon + s.offsetLon).toFixed(6)),
       factors: s.factors,

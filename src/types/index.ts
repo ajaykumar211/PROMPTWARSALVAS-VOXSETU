@@ -39,6 +39,29 @@ export interface StatusHistoryEntry {
   timestamp: string;
 }
 
+export interface Zone {
+  id: string;
+  name: string;
+  bounds: {
+    north: number;
+    south: number;
+    east: number;
+    west: number;
+  };
+  defaultTeam: Team;
+}
+
+export interface ZoneStats {
+  id: string;
+  name: string;
+  openCount: number;
+  criticalCount: number;
+  overdueCount: number;
+  avgAgeDays: number;
+  hotspotCount: number;
+  categoryCounts: Record<Category, number>;
+}
+
 export interface Report {
   id: string;
   trackingCode: string;
@@ -48,6 +71,11 @@ export interface Report {
   summary_en: string;
   summary_user: string;
   category: Category;
+  aiCategory?: Category; // Original category from AI
+  categoryChangedBy?: 'officer';
+  categoryChangeReason?: string;
+  zoneId: string; // "Unzoned" if outside
+  locality?: string; // Optional locality label
   lat: number;
   lon: number;
   imageDataUrl?: string;

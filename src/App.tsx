@@ -338,24 +338,25 @@ export default function App() {
 
       {/* Footer */}
       <footer className="border-t border-[#E1E4EE] bg-[#FFFFFF] py-6 text-center text-xs text-[#5A6279]">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 sm:flex-row sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center gap-2">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
             <span className="font-bold text-[#14213D]">VoxSetu</span>
             <span className="hidden sm:inline">•</span>
             <span>{t(lang, 'tagline')}</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => setIsLimitationsOpen(true)}
               className="font-medium text-[#1F7A8C] hover:underline cursor-pointer"
             >
               {t(lang, 'limitations')}
             </button>
-            <span className="text-[#E1E4EE]">|</span>
+            <span className="hidden xs:inline text-[#E1E4EE]">|</span>
             <span className="flex items-center gap-1 text-[11px] text-[#5A6279]">
               <Sparkles className="h-3 w-3 text-[#1F7A8C]" />
-              Gemini 3.8 Flash + Deterministic Rules
+              <span className="hidden xs:inline">Gemini 3.8 Flash + Deterministic Rules</span>
+              <span className="xs:hidden">Gemini AI</span>
             </span>
           </div>
         </div>

@@ -131,6 +131,9 @@ test('Hotspot Detection: Groups >= 3 connected reports within 300m', () => {
     suspectedSpam: false,
     isSample: true,
     createdAt: new Date().toISOString(),
+    zoneId: 'zone-1',
+    locality: 'Mock Locality',
+    aiCategory: cat,
   });
 
   // 3 close reports (within ~50m) in Waterlogging / Drainage
@@ -243,6 +246,9 @@ test('Permanent Citizen Tracking ID: Multiple reports share same citizenId', () 
     suspectedSpam: false,
     isSample: false,
     createdAt: new Date().toISOString(),
+    zoneId: 'zone-1',
+    locality: 'Kodialbail',
+    aiCategory: 'Streetlight',
   };
 
   const report2: Report = {

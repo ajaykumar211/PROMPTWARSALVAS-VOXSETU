@@ -24,6 +24,8 @@ import {
   isValidCoordinate,
 } from './src/utils/geo.ts';
 import { detectHotspots } from './src/utils/hotspots.ts';
+import { SAMPLE_ZONES, getZoneForPoint, isPointInBounds } from './src/utils/geo.ts';
+import { Zone, ZoneStats } from './src/types/index.ts';
 
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
@@ -918,11 +920,18 @@ app.post('/api/reports', async (req: Request, res: Response) => {
     const citizenToken = reqToken || headerToken || '';
     const citizenSession = verifyCitizenSession(req.cookies?.voxsetu_citizen_session);
 
-    let assignedCitizenId = citizenSession?.citizenTrackingId
+    const assignedCitizenId = citizenSession?.citizenTrackingId
       ? citizenSession.citizenTrackingId
       : (typeof reqCitizenId === 'string' && reqCitizenId.trim())
       ? reqCitizenId.trim().toUpperCase()
       : generateTrackingCode();
+
+    // Zone & Locality logic
+    const zoneId = getZoneForPoint(lat, lon);
+    let locality = 'Mangaluru Central';
+    if (lat > 12.92) locality = 'Bejai / Kadri Area';
+    else if (lat < 12.91) locality = 'Pandeshwar / Bunder Port';
+    else if (lon > 74.86) locality = 'Kadri Hills';
 
     // Register or verify citizen account
     if (!citizenAccountsMap.has(assignedCitizenId)) {
@@ -994,6 +1003,9 @@ app.post('/api/reports', async (req: Request, res: Response) => {
       summary_en: analysis.summary_en,
       summary_user: analysis.summary_user,
       category: finalCategory,
+      aiCategory: analysis.category,
+      zoneId,
+      locality,
       lat: Number(lat.toFixed(6)),
       lon: Number(lon.toFixed(6)),
       imageDataUrl: imageDataUrl || undefined,
@@ -1285,9 +1297,123 @@ app.get('/api/auth/citizen/me', (req: Request, res: Response) => {
   });
 });
 
-// 2. GET /api/reports (Full list for Authority view - protected by requireAuthority)
+// 2. GET /api/reports (Full list for Authority view with filters - protected by requireAuthority)
 app.get('/api/reports', requireAuthority, (req: Request, res: Response) => {
-  res.json(reports);
+  const { zone, category, status, priority, north, south, east, west } = req.query;
+
+  let filtered = [...reports];
+
+  if (zone) filtered = filtered.filter(r => r.zoneId === zone);
+  if (category) filtered = filtered.filter(r => r.category === category);
+  if (status) filtered = filtered.filter(r => r.status === status);
+  if (priority) filtered = filtered.filter(r => r.priorityBand === priority);
+
+  if (north && south && east && west) {
+    const n = parseFloat(north as string);
+    const s = parseFloat(south as string);
+    const e = parseFloat(east as string);
+    const w = parseFloat(west as string);
+    filtered = filtered.filter(r => isPointInBounds(r.lat, r.lon, { north: n, south: s, east: e, west: w }));
+  }
+
+  res.json(filtered);
+});
+
+// 2a. GET /api/zones
+app.get('/api/zones', requireAuthority, (_req: Request, res: Response) => {
+  res.json(SAMPLE_ZONES);
+});
+
+// 2b. GET /api/stats/zones
+app.get('/api/stats/zones', requireAuthority, (req: Request, res: Response) => {
+  const hotspots = detectHotspots(reports);
+  const stats: ZoneStats[] = SAMPLE_ZONES.map(z => {
+    const zoneReports = reports.filter(r => r.zoneId === z.id);
+    const open = zoneReports.filter(r => r.status !== 'Resolved' && !r.duplicateOf);
+    
+    const catCounts: Record<Category, number> = {
+      'Waterlogging': 0, 'Road damage': 0, 'Garbage': 0, 'Streetlight': 0, 'Drainage': 0, 'Other': 0
+    };
+    zoneReports.forEach(r => {
+      if (!r.duplicateOf) catCounts[r.category] = (catCounts[r.category] || 0) + 1;
+    });
+
+    const now = Date.now();
+    const ages = open.map(r => (now - new Date(r.createdAt).getTime()) / (1000 * 3600 * 24));
+    const avgAge = ages.length > 0 ? ages.reduce((a, b) => a + b, 0) / ages.length : 0;
+
+    return {
+      id: z.id,
+      name: z.name,
+      openCount: open.length,
+      criticalCount: open.filter(r => r.priorityBand === 'critical').length,
+      overdueCount: open.filter(r => new Date(r.targetDueAt).getTime() < now).length,
+      avgAgeDays: Number(avgAge.toFixed(1)),
+      hotspotCount: hotspots.filter(h => isPointInBounds(h.center.lat, h.center.lon, z.bounds)).length,
+      categoryCounts: catCounts,
+    };
+  });
+  res.json(stats);
+});
+
+// 2c. POST /api/reports/bulk-assign
+app.post('/api/reports/bulk-assign', requireAuthority, (req: Request, res: Response) => {
+  const { zoneId, team } = req.body;
+  if (!zoneId || !team) {
+    res.status(400).json({ error: 'zoneId and team are required' });
+    return;
+  }
+
+  let count = 0;
+  reports.forEach(r => {
+    if (r.zoneId === zoneId && !r.assignedTeam && r.status !== 'Resolved' && !r.duplicateOf) {
+      r.assignedTeam = team;
+      r.status = 'Assigned';
+      r.statusHistory.push({
+        status: 'Assigned',
+        note: `Bulk assigned to ${team} by triage office.`,
+        citizenMessage: `Your report has been assigned to the ${team} team for action.`,
+        by: 'Authority Officer (Bulk)',
+        timestamp: new Date().toISOString()
+      });
+      count++;
+    }
+  });
+
+  if (count > 0) saveReportsToDisk();
+  res.json({ success: true, count });
+});
+
+// 2d. PATCH /api/reports/:id/category
+app.patch('/api/reports/:id/category', requireAuthority, async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { category, reason } = req.body;
+
+  const report = reports.find(r => r.id === id);
+  if (!report) {
+    res.status(404).json({ error: 'Report not found' });
+    return;
+  }
+
+  const oldCategory = report.category;
+  report.category = category;
+  report.categoryChangedBy = 'officer';
+  report.categoryChangeReason = reason;
+
+  report.statusHistory.push({
+    status: report.status,
+    note: `Category changed from ${oldCategory} to ${category}. Reason: ${reason}`,
+    citizenMessage: `Our triage officer updated the category of your report to ${category}.`,
+    by: 'Authority Officer',
+    timestamp: new Date().toISOString()
+  });
+
+  // Recompute duplicate links for nearby reports of old and new category
+  // Simplified: just trigger save and let next detectHotspots handle it (it's computed on the fly in GET)
+  // For duplicates, we should probably check if this report is now a duplicate of something else or vice versa
+  
+  saveReportsToDisk();
+  res.json({ success: true, report });
 });
 
 // 3. GET /api/similar (Nearby reports for citizen prompt before submit)
@@ -1908,9 +2034,8 @@ async function startServer() {
 
     // Handle WebSocket upgrades for Vite HMR
     server.on('upgrade', (req, socket, head) => {
-      // Standard Vite HMR paths or root
       if (req.url && (req.url.startsWith('/@vite') || req.url === '/')) {
-        vite.ws.handleUpgrade(req, socket, head);
+        (vite.ws as any).handleUpgrade(req, socket, head);
       }
     });
   } else {

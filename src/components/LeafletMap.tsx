@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import { Report, Hotspot, PriorityBand } from '../types/index.ts';
+import { Report, Hotspot, PriorityBand, Zone } from '../types/index.ts';
 
 interface LeafletMapProps {
   mode: 'citizen-picker' | 'authority-dashboard';
@@ -14,6 +14,9 @@ interface LeafletMapProps {
   selectedHotspotId?: string | null;
   onSelectReport?: (report: Report) => void;
   onSelectHotspot?: (hotspot: Hotspot) => void;
+  zones?: Zone[];
+  showZones?: boolean;
+  onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void;
   className?: string;
 }
 
@@ -32,16 +35,20 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
   onCoordSelect,
   reports = [],
   hotspots = [],
+  zones = [],
+  showZones = true,
   selectedReportId,
   selectedHotspotId,
   onSelectReport,
   onSelectHotspot,
+  onBoundsChange,
   className = 'w-full h-full min-h-[350px]',
 }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
   const hotspotsLayerRef = useRef<L.LayerGroup | null>(null);
+  const zonesLayerRef = useRef<L.LayerGroup | null>(null);
   const pickerMarkerRef = useRef<L.Marker | null>(null);
 
   // Initialize Map
@@ -63,6 +70,7 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
 
     markersLayerRef.current = L.layerGroup().addTo(map);
     hotspotsLayerRef.current = L.layerGroup().addTo(map);
+    zonesLayerRef.current = L.layerGroup().addTo(map);
 
     if (mode === 'citizen-picker') {
       map.on('click', (e: L.LeafletMouseEvent) => {
@@ -127,15 +135,47 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
     }
   }, [selectedCoord, mode, onCoordSelect]);
 
-  // Sync reports & hotspots in authority mode or citizen preview
+  // Sync reports, hotspots & zones in authority mode or citizen preview
   useEffect(() => {
     const map = mapInstanceRef.current;
     const markersLayer = markersLayerRef.current;
     const hotspotsLayer = hotspotsLayerRef.current;
-    if (!map || !markersLayer || !hotspotsLayer) return;
+    const zonesLayer = zonesLayerRef.current;
+    if (!map || !markersLayer || !hotspotsLayer || !zonesLayer) return;
 
     markersLayer.clearLayers();
     hotspotsLayer.clearLayers();
+    zonesLayer.clearLayers();
+
+    // 0. Draw Zones
+    if (showZones && zones.length > 0) {
+      zones.forEach(zone => {
+        const bounds: L.LatLngBoundsExpression = [
+          [zone.bounds.south, zone.bounds.west],
+          [zone.bounds.north, zone.bounds.east]
+        ];
+        
+        L.rectangle(bounds, {
+          color: '#1F7A8C',
+          weight: 1,
+          fillOpacity: 0.05,
+          interactive: false
+        }).addTo(zonesLayer);
+
+        // Zone label in center
+        const centerLat = (zone.bounds.north + zone.bounds.south) / 2;
+        const centerLon = (zone.bounds.east + zone.bounds.west) / 2;
+        
+        L.marker([centerLat, centerLon], {
+          icon: L.divIcon({
+            className: 'zone-label',
+            html: `<div style="color: #1F7A8C; font-weight: 800; font-size: 10px; opacity: 0.6; text-transform: uppercase; white-space: nowrap; pointer-events: none;">${zone.name}</div>`,
+            iconSize: [0, 0]
+          }),
+          interactive: false
+        }).addTo(zonesLayer);
+      });
+    }
 
     // 1. Draw Hotspots (translucent circles)
     hotspots.forEach((hs) => {
@@ -237,7 +277,7 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
 
       marker.addTo(markersLayer);
     });
-  }, [reports, hotspots, selectedReportId, selectedHotspotId, onSelectReport, onSelectHotspot]);
+  }, [reports, hotspots, zones, showZones, selectedReportId, selectedHotspotId, onSelectReport, onSelectHotspot]);
 
   // Center on selected report if changed
   useEffect(() => {
@@ -248,9 +288,43 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
     }
   }, [selectedReportId, reports]);
 
+  const handleSearchThisArea = () => {
+    if (!mapInstanceRef.current || !onBoundsChange) return;
+    const b = mapInstanceRef.current.getBounds();
+    onBoundsChange({
+      north: b.getNorth(),
+      south: b.getSouth(),
+      east: b.getEast(),
+      west: b.getWest()
+    });
+  };
+
+  const handleResetView = () => {
+    if (!mapInstanceRef.current) return;
+    mapInstanceRef.current.setView(center, zoom, { animate: true });
+    if (onBoundsChange) onBoundsChange(null as any);
+  };
+
   return (
     <div className={`relative overflow-hidden rounded-xl border border-[#E1E4EE] bg-[#FFFFFF] shadow-sm ${className}`}>
       <div ref={mapContainerRef} className="w-full h-full min-h-[300px]" />
+      
+      {mode === 'authority-dashboard' && (
+        <div className="absolute top-4 left-4 z-[1000] flex flex-col gap-2">
+          <button
+            onClick={handleSearchThisArea}
+            className="rounded-lg bg-[#14213D] px-3 py-1.5 text-[10px] font-bold text-white shadow-lg hover:bg-[#1F7A8C] transition"
+          >
+            Search this area
+          </button>
+          <button
+            onClick={handleResetView}
+            className="rounded-lg bg-white px-3 py-1.5 text-[10px] font-bold text-[#14213D] shadow-lg border border-[#E1E4EE] hover:bg-[#F7F5F0] transition"
+          >
+            Reset view
+          </button>
+        </div>
+      )}
     </div>
   );
 };

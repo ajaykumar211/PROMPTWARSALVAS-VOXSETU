@@ -281,7 +281,7 @@ export const TrackPage: React.FC<TrackPageProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="flex h-11 items-center justify-center rounded-xl bg-[#14213D] px-6 text-sm font-semibold text-white shadow-xs hover:bg-[#1F7A8C] focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden disabled:opacity-50"
+            className="flex h-11 shrink-0 items-center justify-center rounded-xl bg-[#14213D] px-6 text-sm font-semibold text-white shadow-xs hover:bg-[#1F7A8C] focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden disabled:opacity-50"
           >
             {loading ? 'Searching...' : t(lang, 'track_search_btn')}
           </button>
@@ -438,32 +438,32 @@ export const TrackPage: React.FC<TrackPageProps> = ({
                     <h4 className="text-xs font-bold uppercase tracking-wider text-[#5A6279]">
                       Resolution Lifecycle
                     </h4>
-                    <div className="mt-4 flex items-center justify-between">
+                    <div className="mt-4 flex items-center justify-between gap-1 overflow-x-auto pb-2 sm:pb-0">
                       {STATUS_STEPS.map((step, idx) => {
                         const currentIdx = STATUS_STEPS.indexOf(rep.status);
                         const isCompleted = currentIdx >= idx;
                         const isCurrent = rep.status === step;
 
                         return (
-                          <div key={step} className="flex flex-1 flex-col items-center text-center relative">
+                          <div key={step} className="flex flex-1 min-w-[60px] flex-col items-center text-center relative">
                             {idx !== 0 && (
                               <div
-                                className={`absolute top-4 -left-1/2 w-full h-1 -z-0 ${
+                                className={`absolute top-3 sm:top-4 -left-1/2 w-full h-0.5 sm:h-1 -z-0 ${
                                   isCompleted ? 'bg-[#1F7A8C]' : 'bg-[#E1E4EE]'
                                 }`}
                               />
                             )}
                             <div
-                              className={`z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 transition ${
+                              className={`z-10 flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full border-2 transition ${
                                 isCompleted
                                   ? 'border-[#1F7A8C] bg-[#1F7A8C] text-white shadow-xs'
                                   : 'border-[#E1E4EE] bg-[#FFFFFF] text-[#94A3B8]'
                               } ${isCurrent ? 'ring-4 ring-[#1F7A8C]/20' : ''}`}
                             >
-                              {isCompleted ? <CheckCircle2 className="h-4 w-4" /> : idx + 1}
+                              {isCompleted ? <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4" /> : <span className="text-[10px] sm:text-xs">{idx + 1}</span>}
                             </div>
                             <span
-                              className={`mt-2 text-[11px] font-semibold ${
+                              className={`mt-2 text-[9px] sm:text-[11px] font-semibold leading-tight px-1 ${
                                 isCurrent
                                   ? 'text-[#1F7A8C]'
                                   : isCompleted

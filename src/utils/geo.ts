@@ -31,6 +31,50 @@ export function areCategoriesRelated(catA: string, catB: string): boolean {
   return false;
 }
 
+import { Zone } from '../types/index.ts';
+
+export const SAMPLE_ZONES: Zone[] = [
+  {
+    id: 'zone-a',
+    name: 'Hampankatta Central',
+    bounds: { north: 12.925, south: 12.915, east: 74.855, west: 74.840 },
+    defaultTeam: 'Roads',
+  },
+  {
+    id: 'zone-b',
+    name: 'Bejai Ward',
+    bounds: { north: 12.935, south: 12.925, east: 74.860, west: 74.845 },
+    defaultTeam: 'Sanitation',
+  },
+  {
+    id: 'zone-c',
+    name: 'Kodialbail',
+    bounds: { north: 12.915, south: 12.900, east: 74.850, west: 74.835 },
+    defaultTeam: 'Drainage',
+  },
+  {
+    id: 'zone-d',
+    name: 'Pandeshwar Port',
+    bounds: { north: 12.900, south: 12.885, east: 74.855, west: 74.830 },
+    defaultTeam: 'Sanitation',
+  },
+  {
+    id: 'zone-e',
+    name: 'Kadri Hills',
+    bounds: { north: 12.930, south: 12.910, east: 74.880, west: 74.860 },
+    defaultTeam: 'Electrical',
+  },
+];
+
+export function isPointInBounds(lat: number, lon: number, bounds: { north: number; south: number; east: number; west: number }): boolean {
+  return lat >= bounds.south && lat <= bounds.north && lon >= bounds.west && lon <= bounds.east;
+}
+
+export function getZoneForPoint(lat: number, lon: number): string {
+  const zone = SAMPLE_ZONES.find(z => isPointInBounds(lat, lon, z.bounds));
+  return zone ? zone.id : 'Unzoned';
+}
+
 export function isValidCoordinate(lat: number, lon: number): boolean {
   return (
     typeof lat === 'number' &&

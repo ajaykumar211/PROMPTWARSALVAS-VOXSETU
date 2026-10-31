@@ -80,7 +80,7 @@ export const CitizenAuthModal: React.FC<CitizenAuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[#E1E4EE] bg-white shadow-xl animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-[#E1E4EE] bg-white shadow-xl animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#E1E4EE] bg-[#F7F5F0] px-6 py-4">
           <div className="flex items-center gap-2">

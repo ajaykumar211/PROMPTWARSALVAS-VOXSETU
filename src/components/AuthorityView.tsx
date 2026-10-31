@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Report, Hotspot, SupportedLang, PriorityBand, Status, Category, Team } from '../types/index.ts';
+import { Report, Hotspot, SupportedLang, PriorityBand, Status, Category, Team, Zone, ZoneStats } from '../types/index.ts';
 import { t, formatDate } from '../utils/i18n.ts';
 import { LeafletMap } from './LeafletMap.tsx';
 import { isPastTargetDue, PRIORITY_FORMULA_TEXT } from '../utils/priority.ts';
@@ -52,12 +52,26 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
   const [selectedReportId, setSelectedReportId] = useState<string | null>(null);
   const [selectedHotspot, setSelectedHotspot] = useState<Hotspot | null>(null);
 
+  // Data state
+  const [zones, setZones] = useState<Zone[]>([]);
+  const [zoneStats, setZoneStats] = useState<ZoneStats[]>([]);
+  const [loadingZones, setLoadingZones] = useState(false);
+
   // Filters
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [zoneFilter, setZoneFilter] = useState<string>('all');
   const [unassignedOnly, setUnassignedOnly] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [mapBoundsFilter, setMapBoundsFilter] = useState<{ north: number; south: number; east: number; west: number } | null>(null);
+
+  // Grouping
+  const [groupBy, setGroupBy] = useState<'none' | 'zoneId' | 'category' | 'priorityBand' | 'status'>('none');
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
+
+  // Map Controls
+  const [showZones, setShowZones] = useState(true);
 
   // Workflow Action Form State
   const [actionStatus, setActionStatus] = useState<Status>('Under review');
@@ -67,12 +81,46 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [statusSuccessMsg, setStatusSuccessMsg] = useState<string | null>(null);
 
+  // Category Override State
+  const [newCategory, setNewCategory] = useState<Category | ''>('');
+  const [categoryReason, setCategoryReason] = useState('');
+  const [updatingCategory, setUpdatingCategory] = useState(false);
+
   // Action brief loading
   const [generatingBrief, setGeneratingBrief] = useState(false);
   const [activeBrief, setActiveBrief] = useState<string | null>(null);
 
+  // Bulk Assignment
+  const [bulkAssigning, setBulkAssigning] = useState(false);
+
   // Reset Demo Data
   const [resettingDemo, setResettingDemo] = useState(false);
+
+  // Initial Data Fetch
+  useEffect(() => {
+    fetchZonesAndStats();
+  }, []);
+
+  const fetchZonesAndStats = async () => {
+    setLoadingZones(true);
+    try {
+      const [zRes, sRes] = await Promise.all([
+        fetch('/api/zones'),
+        fetch('/api/stats/zones'),
+      ]);
+      if (zRes.ok) setZones(await zRes.json());
+      if (sRes.ok) setZoneStats(await sRes.json());
+    } catch (err) {
+      console.error('Failed to fetch zones:', err);
+    } finally {
+      setLoadingZones(false);
+    }
+  };
+
+  const handleRefreshAll = () => {
+    onRefreshData();
+    fetchZonesAndStats();
+  };
 
   // Pre-select first critical report if none selected
   useEffect(() => {
@@ -92,8 +140,66 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
       setActionNote('');
       setResolutionNote(selectedReport.resolutionNote || '');
       setStatusSuccessMsg(null);
+      setNewCategory(selectedReport.category);
+      setCategoryReason('');
     }
   }, [selectedReportId]);
+
+  const handleUpdateCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedReport || !newCategory || newCategory === selectedReport.category) return;
+    if (!categoryReason.trim()) {
+      alert('Please provide a reason for the category change.');
+      return;
+    }
+    if (!confirm(`Change category from ${selectedReport.category} to ${newCategory}?`)) return;
+
+    setUpdatingCategory(true);
+    try {
+      const res = await fetch(`/api/reports/${selectedReport.id}/category`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category: newCategory, reason: categoryReason.trim() }),
+      });
+      if (res.ok) {
+        handleRefreshAll();
+        setStatusSuccessMsg('Category updated successfully.');
+      } else {
+        alert('Failed to update category.');
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUpdatingCategory(false);
+    }
+  };
+
+  const handleBulkAssign = async (zoneId: string, team: Team) => {
+    const unassignedCount = reports.filter(r => r.zoneId === zoneId && !r.assignedTeam && r.status !== 'Resolved' && !r.duplicateOf).length;
+    if (unassignedCount === 0) {
+      alert('No unassigned open reports in this zone.');
+      return;
+    }
+
+    if (!confirm(`Assign all ${unassignedCount} unassigned reports in this zone to the ${team} team?`)) return;
+
+    setBulkAssigning(true);
+    try {
+      const res = await fetch('/api/reports/bulk-assign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ zoneId, team }),
+      });
+      if (res.ok) {
+        handleRefreshAll();
+        alert('Bulk assignment completed.');
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setBulkAssigning(false);
+    }
+  };
 
   // When selected hotspot changes, check for brief
   useEffect(() => {
@@ -134,7 +240,7 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
     setResettingDemo(true);
     try {
       await fetch('/api/reset-demo', { method: 'POST' });
-      onRefreshData();
+      handleRefreshAll();
     } catch (err) {
       console.error(err);
     } finally {
@@ -173,7 +279,7 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
 
       const json = await res.json();
       setStatusSuccessMsg(`Status updated. Citizen will see: "${json.citizenMessage}"`);
-      onRefreshData();
+      handleRefreshAll();
     } catch (err: any) {
       alert(err.message || 'Update failed');
     } finally {
@@ -183,8 +289,8 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
 
   const handleUnlink = async (reportId: string) => {
     try {
-      await fetch(`/api/reports/${reportId}/unlink`, { method: 'POST' });
-      onRefreshData();
+      const res = await fetch(`/api/reports/${reportId}/unlink`, { method: 'POST' });
+      if (res.ok) handleRefreshAll();
     } catch (err) {
       console.error(err);
     }
@@ -192,22 +298,20 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
 
   const handleConfirmDuplicate = async (reportId: string, parentId: string) => {
     try {
-      await fetch(`/api/reports/${reportId}/confirm-duplicate`, {
+      const res = await fetch(`/api/reports/${reportId}/confirm-duplicate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ parentId }),
       });
-      onRefreshData();
+      if (res.ok) handleRefreshAll();
     } catch (err) {
       console.error(err);
     }
   };
 
-  // Metrics calculation
-  const openCount = reports.filter((r) => r.status !== 'Resolved' && !r.duplicateOf).length;
-  const criticalCount = reports.filter((r) => r.priorityBand === 'critical' && r.status !== 'Resolved' && !r.duplicateOf).length;
-  const resolvedCount = reports.filter((r) => r.status === 'Resolved' && !r.duplicateOf).length;
-  const hotspotsCount = hotspots.length;
+  const isPointInBounds = (lat: number, lon: number, bounds: { north: number; south: number; east: number; west: number }) => {
+    return lat >= bounds.south && lat <= bounds.north && lon >= bounds.west && lon <= bounds.east;
+  };
 
   // Filter queue reports
   const filteredReports = reports.filter((r) => {
@@ -217,18 +321,69 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
     if (priorityFilter !== 'all' && r.priorityBand !== priorityFilter) return false;
     if (statusFilter !== 'all' && r.status !== statusFilter) return false;
     if (categoryFilter !== 'all' && r.category !== categoryFilter) return false;
+    if (zoneFilter !== 'all' && r.zoneId !== zoneFilter) return false;
     if (unassignedOnly && r.assignedTeam) return false;
+    
+    if (mapBoundsFilter) {
+      if (!isPointInBounds(r.lat, r.lon, mapBoundsFilter)) return false;
+    }
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchText =
         r.trackingCode.toLowerCase().includes(q) ||
         r.summary_en.toLowerCase().includes(q) ||
         r.originalText.toLowerCase().includes(q) ||
-        r.category.toLowerCase().includes(q);
+        r.category.toLowerCase().includes(q) ||
+        (r.locality || '').toLowerCase().includes(q);
       if (!matchText) return false;
     }
     return true;
   });
+
+  // Grouping logic
+  const toggleGroup = (groupId: string) => {
+    const next = new Set(collapsedGroups);
+    if (next.has(groupId)) next.delete(groupId);
+    else next.add(groupId);
+    setCollapsedGroups(next);
+  };
+
+  const groupedKeys = new Set<string>();
+  const groupedReports: Record<string, Report[]> = {};
+  
+  if (groupBy === 'none') {
+    groupedReports['all'] = filteredReports;
+    groupedKeys.add('all');
+  } else {
+    filteredReports.forEach(r => {
+      const key = (r[groupBy as keyof Report] as string) || 'Other';
+      if (!groupedReports[key]) {
+        groupedReports[key] = [];
+        groupedKeys.add(key);
+      }
+      groupedReports[key].push(r);
+    });
+  }
+
+  const getGroupName = (key: string) => {
+    if (groupBy === 'zoneId') return zones.find(z => z.id === key)?.name || 'Unzoned';
+    return key;
+  };
+
+  const getWorstPriorityInGroup = (reps: Report[]): PriorityBand => {
+    if (reps.some(r => r.priorityBand === 'critical')) return 'critical';
+    if (reps.some(r => r.priorityBand === 'high')) return 'high';
+    if (reps.some(r => r.priorityBand === 'medium')) return 'medium';
+    return 'low';
+  };
+
+  // Metrics calculation
+  const openCountTotal = reports.filter((r) => r.status !== 'Resolved' && !r.duplicateOf).length;
+  const criticalCountTotal = reports.filter((r) => r.priorityBand === 'critical' && r.status !== 'Resolved' && !r.duplicateOf).length;
+  const resolvedCountTotal = reports.filter((r) => r.status === 'Resolved' && !r.duplicateOf).length;
+  const resolvedCountReal = reports.filter((r) => r.status === 'Resolved' && !r.duplicateOf).length;
+  const hotspotsCountTotal = hotspots.length;
 
   // Linked duplicates belonging to selected report
   const linkedDuplicates = selectedReport
@@ -237,135 +392,276 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 space-y-6">
-      {/* Top Insights Strip */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
-        <div className="rounded-xl border border-[#E1E4EE] bg-[#FFFFFF] p-4 shadow-2xs">
-          <div className="flex items-center justify-between text-[#5A6279]">
-            <span className="text-xs font-semibold">{t(lang, 'insights_open')}</span>
-            <AlertTriangle className="h-4 w-4 text-[#1F7A8C]" />
-          </div>
-          <div className="mt-2 text-2xl font-black text-[#14213D]">{openCount}</div>
-          <span className="text-[10px] text-[#5A6279]">Active civic tasks</span>
-        </div>
+      {/* Top Insights Strip - Zone Cards */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {loadingZones ? (
+          Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="h-32 animate-pulse rounded-xl bg-white border border-[#E1E4EE]" />
+          ))
+        ) : (
+          zoneStats.map((zs) => {
+            const isActive = zoneFilter === zs.id;
+            return (
+              <div
+                key={zs.id}
+                onClick={() => setZoneFilter(isActive ? 'all' : zs.id)}
+                className={`cursor-pointer rounded-xl border p-4 shadow-2xs transition-all hover:shadow-sm ${
+                  isActive ? 'border-[#1F7A8C] bg-white ring-2 ring-[#1F7A8C]/20 shadow-xs' : 'border-[#E1E4EE] bg-[#FFFFFF]'
+                }`}
+              >
+                <div className="flex items-center justify-between text-[#5A6279] mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-tight truncate pr-1">{zs.name}</span>
+                  <Building2 className={`h-3.5 w-3.5 ${isActive ? 'text-[#1F7A8C]' : 'text-[#94A3B8]'}`} />
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-xl font-black text-[#14213D]">{zs.openCount}</span>
+                  <span className="text-[10px] text-[#5A6279]">open</span>
+                </div>
+                <div className="mt-2 grid grid-cols-3 gap-1">
+                  <div className="text-center rounded-sm bg-red-50 p-1">
+                    <span className="block text-[10px] font-black text-red-700">{zs.criticalCount}</span>
+                    <span className="block text-[8px] text-red-600 uppercase font-bold">Crit</span>
+                  </div>
+                  <div className="text-center rounded-sm bg-amber-50 p-1">
+                    <span className="block text-[10px] font-black text-amber-700">{zs.overdueCount}</span>
+                    <span className="block text-[8px] text-amber-600 uppercase font-bold">Past</span>
+                  </div>
+                  <div className="text-center rounded-sm bg-blue-50 p-1">
+                    <span className="block text-[10px] font-black text-blue-700">{zs.hotspotCount}</span>
+                    <span className="block text-[8px] text-blue-600 uppercase font-bold">Spot</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
 
-        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4 shadow-2xs">
-          <div className="flex items-center justify-between text-red-800">
-            <span className="text-xs font-semibold">{t(lang, 'insights_critical')}</span>
-            <Flame className="h-4 w-4 text-[#D9480F]" />
+        {/* Real-time Triage Summary Card */}
+        <div className="flex flex-col justify-between rounded-xl border border-dashed border-[#E1E4EE] bg-[#F7F5F0]/30 p-4 shadow-2xs">
+          <div>
+            <span className="text-[10px] font-bold text-[#5A6279] uppercase">City Triage</span>
+            <div className="mt-1 flex items-center justify-between">
+              <span className="text-xs font-semibold text-[#14213D]">Total Open</span>
+              <span className="text-base font-black text-[#1F7A8C]">{openCountTotal}</span>
+            </div>
           </div>
-          <div className="mt-2 text-2xl font-black text-[#D9480F]">{criticalCount}</div>
-          <span className="text-[10px] text-red-700">Immediate action req.</span>
-        </div>
-
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4 shadow-2xs">
-          <div className="flex items-center justify-between text-emerald-800">
-            <span className="text-xs font-semibold">{t(lang, 'insights_resolved')}</span>
-            <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-          </div>
-          <div className="mt-2 text-2xl font-black text-emerald-900">{resolvedCount}</div>
-          <span className="text-[10px] text-emerald-700">Closed in field</span>
-        </div>
-
-        <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-4 shadow-2xs">
-          <div className="flex items-center justify-between text-blue-800">
-            <span className="text-xs font-semibold">{t(lang, 'insights_hotspots')}</span>
-            <Layers className="h-4 w-4 text-[#3B82F6]" />
-          </div>
-          <div className="mt-2 text-2xl font-black text-[#3B82F6]">{hotspotsCount}</div>
-          <span className="text-[10px] text-blue-700">Geographic clusters</span>
-        </div>
-
-        {/* Demo Data Reset Button */}
-        <div className="col-span-2 sm:col-span-4 lg:col-span-1 flex flex-col justify-between rounded-xl border border-dashed border-[#E1E4EE] bg-[#FFFFFF] p-4 shadow-2xs">
-          <span className="text-xs font-semibold text-[#5A6279]">Prototype Sandbox</span>
           <button
             type="button"
             onClick={handleResetDemo}
             disabled={resettingDemo}
-            className="mt-2 flex h-9 items-center justify-center gap-1.5 rounded-lg border border-[#E1E4EE] bg-[#F7F5F0] px-3 text-xs font-bold text-[#14213D] hover:bg-amber-50 hover:border-amber-300 disabled:opacity-50"
+            className="mt-3 flex h-8 items-center justify-center gap-1.5 rounded-lg border border-[#E1E4EE] bg-white px-3 text-[10px] font-bold text-[#14213D] hover:bg-amber-50 hover:border-amber-300 disabled:opacity-50"
           >
-            <RotateCcw className={`h-3.5 w-3.5 text-amber-700 ${resettingDemo ? 'animate-spin' : ''}`} />
-            <span>{resettingDemo ? t(lang, 'resetting') : t(lang, 'reset_demo_btn')}</span>
+            <RotateCcw className={`h-3 w-3 text-amber-700 ${resettingDemo ? 'animate-spin' : ''}`} />
+            <span>{resettingDemo ? 'Resetting...' : 'Reset Samples'}</span>
           </button>
         </div>
       </div>
 
-      {/* Filters Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#E1E4EE] bg-[#FFFFFF] p-4 shadow-2xs">
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Search Input */}
-          <div className="relative">
-            <Search className="absolute top-2.5 left-2.5 h-4 w-4 text-[#5A6279]" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search code, summary, text..."
-              className="h-9 w-48 sm:w-64 rounded-lg border border-[#E1E4EE] bg-[#F7F5F0] pl-8 pr-3 text-xs text-[#14213D] placeholder:text-[#5A6279] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
-            />
+        {/* Filters & Tools Bar */}
+      <div className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#E1E4EE] bg-[#FFFFFF] p-3 sm:p-4 shadow-2xs">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            {/* Search Input */}
+            <div className="relative w-full sm:w-auto">
+              <Search className="absolute top-2.5 left-2.5 h-4 w-4 text-[#5A6279]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="h-10 w-full sm:w-48 lg:w-64 rounded-xl border border-[#E1E4EE] bg-[#F7F5F0] pl-9 pr-4 text-sm text-[#14213D] placeholder:text-[#5A6279] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+              />
+            </div>
+
+            {/* Area Filter */}
+            <div className="flex items-center gap-2 w-[48%] sm:w-auto">
+              <Building2 className="hidden sm:block h-4 w-4 text-[#5A6279]" />
+              <select
+                value={zoneFilter}
+                onChange={(e) => setZoneFilter(e.target.value)}
+                className="h-10 w-full rounded-xl border border-[#E1E4EE] bg-[#F7F5F0] px-2 sm:px-3 text-xs sm:text-sm font-semibold text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+              >
+                <option value="all">All Areas</option>
+                {zones.map(z => <option key={z.id} value={z.id}>{z.name}</option>)}
+                <option value="Unzoned">Unzoned</option>
+              </select>
+            </div>
+
+            {/* Category Filter */}
+            <div className="w-[48%] sm:w-auto">
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="h-10 w-full rounded-xl border border-[#E1E4EE] bg-[#F7F5F0] px-2 sm:px-3 text-xs sm:text-sm font-semibold text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+              >
+                <option value="all">Categories</option>
+                {['Waterlogging', 'Road damage', 'Garbage', 'Streetlight', 'Drainage', 'Other'].map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Priority filter */}
+            <div className="w-[48%] sm:w-auto">
+              <select
+                value={priorityFilter}
+                onChange={(e) => setPriorityFilter(e.target.value)}
+                className="h-10 w-full rounded-xl border border-[#E1E4EE] bg-[#F7F5F0] px-2 sm:px-3 text-xs sm:text-sm font-semibold text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+              >
+                <option value="all">Priorities</option>
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+
+            {/* Status filter */}
+            <div className="w-[48%] sm:w-auto">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="h-10 w-full rounded-xl border border-[#E1E4EE] bg-[#F7F5F0] px-2 sm:px-3 text-xs sm:text-sm font-semibold text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+              >
+                <option value="all">Statuses</option>
+                {['Submitted', 'Under review', 'Assigned', 'In progress', 'Resolved', 'Reopened'].map(st => (
+                  <option key={st} value={st}>{st}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Group By Selector */}
+            <div className="flex items-center gap-2 border-l border-[#E1E4EE] pl-2 sm:pl-3 w-full sm:w-auto">
+              <span className="text-[10px] font-bold text-[#5A6279] uppercase hidden sm:inline">Group:</span>
+              <select
+                value={groupBy}
+                onChange={(e) => setGroupBy(e.target.value as any)}
+                className="h-10 w-full sm:w-auto rounded-xl border border-[#E1E4EE] bg-indigo-50/50 px-2 sm:px-3 text-xs sm:text-sm font-bold text-indigo-700 focus:bg-white focus:ring-2 focus:ring-indigo-400 focus:outline-hidden"
+              >
+                <option value="none">Group: None</option>
+                <option value="zoneId">Group: Area</option>
+                <option value="category">Group: Category</option>
+                <option value="priorityBand">Group: Priority</option>
+                <option value="status">Group: Status</option>
+              </select>
+            </div>
           </div>
 
-          {/* Priority filter */}
-          <select
-            value={priorityFilter}
-            onChange={(e) => setPriorityFilter(e.target.value)}
-            className="h-9 rounded-lg border border-[#E1E4EE] bg-[#F7F5F0] px-2.5 text-xs font-medium text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
-          >
-            <option value="all">{t(lang, 'all_priorities')}</option>
-            <option value="critical">Critical (70-100)</option>
-            <option value="high">High (50-69)</option>
-            <option value="medium">Medium (30-49)</option>
-            <option value="low">Low (&lt;30)</option>
-          </select>
+          <div className="flex items-center justify-between w-full lg:w-auto gap-3">
+            {/* Bulk Assign Button */}
+            {zoneFilter !== 'all' && (
+              <button
+                type="button"
+                onClick={() => {
+                  const z = zones.find(zn => zn.id === zoneFilter);
+                  if (z) handleBulkAssign(z.id, z.defaultTeam);
+                }}
+                disabled={bulkAssigning}
+                className="flex h-10 flex-1 lg:flex-none items-center justify-center gap-2 rounded-xl bg-[#14213D] px-4 text-[11px] font-bold text-white shadow-xs hover:bg-[#1F7A8C] transition disabled:opacity-50"
+              >
+                <UserCheck className="h-4 w-4" />
+                <span className="hidden sm:inline">Assign Unassigned in {zones.find(z => z.id === zoneFilter)?.name}</span>
+                <span className="sm:hidden">Assign All</span>
+              </button>
+            )}
 
-          {/* Status filter */}
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="h-9 rounded-lg border border-[#E1E4EE] bg-[#F7F5F0] px-2.5 text-xs font-medium text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
-          >
-            <option value="all">{t(lang, 'all_statuses')}</option>
-            <option value="Submitted">Submitted</option>
-            <option value="Under review">Under review</option>
-            <option value="Assigned">Assigned</option>
-            <option value="In progress">In progress</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Reopened">Reopened</option>
-          </select>
-
-          {/* Category filter */}
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="h-9 rounded-lg border border-[#E1E4EE] bg-[#F7F5F0] px-2.5 text-xs font-medium text-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
-          >
-            <option value="all">{t(lang, 'all_categories')}</option>
-            <option value="Waterlogging">Waterlogging</option>
-            <option value="Road damage">Road damage</option>
-            <option value="Garbage">Garbage</option>
-            <option value="Streetlight">Streetlight</option>
-            <option value="Drainage">Drainage</option>
-            <option value="Other">Other</option>
-          </select>
-
-          {/* Unassigned Only toggle */}
-          <button
-            type="button"
-            onClick={() => setUnassignedOnly(!unassignedOnly)}
-            className={`flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-semibold transition ${
-              unassignedOnly
-                ? 'border-[#1F7A8C] bg-[#1F7A8C] text-white'
-                : 'border-[#E1E4EE] bg-[#F7F5F0] text-[#5A6279] hover:bg-white'
-            }`}
-          >
-            <UserCheck className="h-3.5 w-3.5" />
-            <span>{t(lang, 'unassigned_filter')}</span>
-          </button>
+            <div className="text-[10px] sm:text-xs text-[#5A6279] whitespace-nowrap">
+              Total: <span className="font-bold text-[#14213D]">{filteredReports.length}</span>
+            </div>
+          </div>
         </div>
 
-        <div className="text-xs text-[#5A6279]">
-          Showing <span className="font-bold text-[#14213D]">{filteredReports.length}</span> reports
+        {/* Active Filter Chips */}
+        {(zoneFilter !== 'all' || categoryFilter !== 'all' || priorityFilter !== 'all' || statusFilter !== 'all' || mapBoundsFilter || searchQuery || unassignedOnly) && (
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span className="text-[10px] font-bold text-[#5A6279] uppercase mr-1 hidden sm:inline">Active:</span>
+            {zoneFilter !== 'all' && (
+              <button onClick={() => setZoneFilter('all')} className="flex items-center gap-1.5 rounded-full bg-[#1F7A8C] px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-white transition hover:bg-[#186270]">
+                {zones.find(z => z.id === zoneFilter)?.name || zoneFilter} <X className="h-3 w-3" />
+              </button>
+            )}
+            {categoryFilter !== 'all' && (
+              <button onClick={() => setCategoryFilter('all')} className="flex items-center gap-1.5 rounded-full bg-blue-600 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-white transition hover:bg-blue-700">
+                {categoryFilter} <X className="h-3 w-3" />
+              </button>
+            )}
+            {priorityFilter !== 'all' && (
+              <button onClick={() => setPriorityFilter('all')} className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-white transition hover:bg-red-700">
+                {priorityFilter} <X className="h-3 w-3" />
+              </button>
+            )}
+            {statusFilter !== 'all' && (
+              <button onClick={() => setStatusFilter('all')} className="flex items-center gap-1.5 rounded-full bg-amber-600 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-white transition hover:bg-amber-700">
+                {statusFilter} <X className="h-3 w-3" />
+              </button>
+            )}
+            {mapBoundsFilter && (
+              <button onClick={() => setMapBoundsFilter(null)} className="flex items-center gap-1.5 rounded-full bg-indigo-600 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-white transition hover:bg-indigo-700">
+                Map Area <X className="h-3 w-3" />
+              </button>
+            )}
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="flex items-center gap-1.5 rounded-full bg-gray-600 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-white transition hover:bg-gray-700">
+                "{searchQuery}" <X className="h-3 w-3" />
+              </button>
+            )}
+            <button
+              onClick={() => {
+                setZoneFilter('all'); setCategoryFilter('all'); setPriorityFilter('all');
+                setStatusFilter('all'); setMapBoundsFilter(null); setSearchQuery(''); setUnassignedOnly(false);
+              }}
+              className="text-[10px] font-bold text-[#1F7A8C] hover:underline px-2"
+            >
+              Clear All
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Category by Area Heatmap Table */}
+      <div className="rounded-2xl border border-[#E1E4EE] bg-white p-6 shadow-sm overflow-x-auto">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-[#14213D]">Category Load by Area</h3>
+          <span className="text-[10px] font-bold text-[#5A6279]">Click cells to filter</span>
         </div>
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="border-b border-[#E1E4EE]">
+              <th className="py-2 text-left font-bold text-[#5A6279]">Area (Zone)</th>
+              {['Waterlogging', 'Road damage', 'Garbage', 'Streetlight', 'Drainage', 'Other'].map(cat => (
+                <th key={cat} className="px-2 py-2 text-center font-bold text-[#5A6279]">{cat}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {zoneStats.map(zs => (
+              <tr key={zs.id} className="border-b border-[#E1E4EE]/50 hover:bg-[#F7F5F0]/30 transition">
+                <td className="py-3 font-bold text-[#14213D]">{zs.name}</td>
+                {['Waterlogging', 'Road damage', 'Garbage', 'Streetlight', 'Drainage', 'Other'].map(cat => {
+                  const count = zs.categoryCounts[cat as Category] || 0;
+                  const intensity = Math.min(10, count) / 10;
+                  return (
+                    <td
+                      key={cat}
+                      onClick={() => { setZoneFilter(zs.id); setCategoryFilter(cat); }}
+                      className="p-1 text-center cursor-pointer transition active:scale-95"
+                    >
+                      <div
+                        className="rounded py-2 font-black"
+                        style={{
+                          backgroundColor: count > 0 ? `rgba(31, 122, 140, ${0.05 + intensity * 0.4})` : 'transparent',
+                          color: count > 3 ? '#FFFFFF' : '#14213D'
+                        }}
+                      >
+                        {count}
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* 3-Column Authority Dashboard Layout */}
@@ -382,77 +678,108 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
           </div>
 
           <div className="space-y-2.5 max-h-[820px] overflow-y-auto pr-1">
-            {filteredReports.length === 0 ? (
+            {groupedKeys.size === 0 ? (
               <div className="rounded-xl border border-dashed border-[#E1E4EE] bg-white p-8 text-center text-xs text-[#5A6279]">
                 No reports match current filters.
               </div>
             ) : (
-              filteredReports.map((report) => {
-                const isSelected = selectedReportId === report.id;
-                const badge = PRIORITY_BADGES[report.priorityBand];
-                const pastTarget = isPastTargetDue(report.targetDueAt);
+              Array.from(groupedKeys).map((groupKey) => {
+                const groupReps = groupedReports[groupKey] || [];
+                const isCollapsed = collapsedGroups.has(groupKey);
+                const groupName = getGroupName(groupKey);
+                const worstPriority = getWorstPriorityInGroup(groupReps);
+                const badge = PRIORITY_BADGES[worstPriority];
 
                 return (
-                  <div
-                    key={report.id}
-                    onClick={() => {
-                      setSelectedReportId(report.id);
-                      setSelectedHotspot(null);
-                    }}
-                    className={`cursor-pointer rounded-xl border p-4 transition shadow-2xs ${
-                      isSelected
-                        ? 'border-[#1F7A8C] bg-white ring-2 ring-[#1F7A8C]/20 shadow-xs'
-                        : 'border-[#E1E4EE] bg-[#FFFFFF] hover:border-[#1F7A8C]/50 hover:bg-[#F7F5F0]/50'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className={`rounded-md border px-2 py-0.5 text-[10px] font-bold uppercase ${badge.bg} ${badge.text}`}>
-                          {t(lang, badge.label)} {report.priorityScore}
-                        </span>
-                        <span className="rounded bg-[#E1E4EE] px-1.5 py-0.5 text-[10px] font-semibold text-[#14213D]">
-                          {report.category}
-                        </span>
-                      </div>
-                      <span className="font-mono text-xs font-bold text-[#14213D]">
-                        {report.trackingCode}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-xs font-medium text-[#14213D] line-clamp-2">
-                      {report.summary_en}
-                    </p>
-
-                    <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-[#E1E4EE]/60 pt-2 text-[10px]">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-[#5A6279]">{report.status}</span>
-                        {report.assignedTeam && (
-                          <span className="text-[#1F7A8C]">({report.assignedTeam})</span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center gap-1.5">
-                        {report.linkedCount > 0 && (
-                          <span className="rounded bg-blue-100 px-1.5 py-0.2 text-[10px] font-bold text-blue-800">
-                            +{report.linkedCount} linked
+                  <div key={groupKey} className="space-y-2 mb-4">
+                    {groupBy !== 'none' && (
+                      <button
+                        onClick={() => toggleGroup(groupKey)}
+                        className="flex w-full items-center justify-between rounded-lg bg-[#F7F5F0] px-3 py-1.5 text-left transition hover:bg-[#E1E4EE]"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-black uppercase text-[#14213D]">{groupName}</span>
+                          <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-[#5A6279]">
+                            {groupReps.length}
                           </span>
-                        )}
-                        {pastTarget && report.status !== 'Resolved' && (
-                          <span className="rounded bg-red-100 px-1.5 py-0.2 text-[10px] font-bold text-red-800">
-                            {t(lang, 'past_target')}
+                        </div>
+                        <div className="flex items-center gap-2">
+                           <span className={`rounded px-1.5 py-0.5 text-[8px] font-bold uppercase ${badge.bg} ${badge.text}`}>
+                            Worst: {worstPriority}
                           </span>
-                        )}
-                        {report.isSample && (
-                          <span className="text-[#5A6279] italic">
-                            {t(lang, 'sample_data')}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                          <Filter className={`h-3 w-3 text-[#94A3B8] transition-transform ${isCollapsed ? '' : 'rotate-180'}`} />
+                        </div>
+                      </button>
+                    )}
+
+                    {!isCollapsed && groupReps.map((report) => {
+                      const isSelected = selectedReportId === report.id;
+                      const rBadge = PRIORITY_BADGES[report.priorityBand];
+                      const pastTarget = isPastTargetDue(report.targetDueAt);
+
+                      return (
+                        <div
+                          key={report.id}
+                          onClick={() => {
+                            setSelectedReportId(report.id);
+                            setSelectedHotspot(null);
+                          }}
+                          className={`cursor-pointer rounded-xl border p-4 transition shadow-2xs ${
+                            isSelected
+                              ? 'border-[#1F7A8C] bg-white ring-2 ring-[#1F7A8C]/20 shadow-xs'
+                              : 'border-[#E1E4EE] bg-[#FFFFFF] hover:border-[#1F7A8C]/50 hover:bg-[#F7F5F0]/50'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className={`rounded-md border px-2 py-0.5 text-[10px] font-bold uppercase ${rBadge.bg} ${rBadge.text}`}>
+                                {t(lang, rBadge.label)} {report.priorityScore}
+                              </span>
+                              <span className="rounded bg-[#E1E4EE] px-1.5 py-0.5 text-[10px] font-semibold text-[#14213D]">
+                                {report.category}
+                              </span>
+                            </div>
+                            <span className="font-mono text-xs font-bold text-[#14213D]">
+                              {report.trackingCode}
+                            </span>
+                          </div>
+
+                          <p className="mt-2 text-xs font-medium text-[#14213D] line-clamp-2">
+                            {report.summary_en}
+                          </p>
+
+                          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-[#E1E4EE]/60 pt-2 text-[10px]">
+                            <div className="flex items-center gap-1.5 text-[#5A6279]">
+                              <span className="font-semibold">{report.status}</span>
+                              {report.zoneId && (
+                                <span className="flex items-center gap-0.5">
+                                  <Building2 className="h-2.5 w-2.5" />
+                                  {zones.find(z => z.id === report.zoneId)?.name || 'Unzoned'}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex items-center gap-1.5">
+                              {report.linkedCount > 0 && (
+                                <span className="rounded bg-blue-100 px-1.5 py-0.2 text-[10px] font-bold text-blue-800">
+                                  +{report.linkedCount} linked
+                                </span>
+                              )}
+                              {pastTarget && report.status !== 'Resolved' && (
+                                <span className="rounded bg-red-100 px-1.5 py-0.2 text-[10px] font-bold text-red-800">
+                                  {t(lang, 'past_target')}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })
-            )}
+            )
+          }
           </div>
         </div>
 
@@ -488,11 +815,13 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
             </div>
           )}
 
-          <div className="h-[480px] rounded-2xl overflow-hidden border border-[#E1E4EE] shadow-sm">
+          <div className="h-[350px] sm:h-[400px] lg:h-[480px] rounded-2xl overflow-hidden border border-[#E1E4EE] shadow-sm relative group">
             <LeafletMap
               mode="authority-dashboard"
               reports={filteredReports}
               hotspots={hotspots}
+              zones={zones}
+              showZones={showZones}
               selectedReportId={selectedReportId}
               selectedHotspotId={selectedHotspot?.id || null}
               onSelectReport={(rep) => {
@@ -502,6 +831,7 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
               onSelectHotspot={(hs) => {
                 setSelectedHotspot(hs);
               }}
+              onBoundsChange={(bounds) => setMapBoundsFilter(bounds)}
             />
           </div>
 
@@ -598,7 +928,7 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
             <div className="rounded-2xl border border-[#E1E4EE] bg-[#FFFFFF] p-6 shadow-sm space-y-5">
               {/* Header */}
               <div className="flex items-start justify-between border-b border-[#E1E4EE] pb-4">
-                <div>
+                <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-base font-black text-[#14213D]">
                       {selectedReport.trackingCode}
@@ -606,10 +936,30 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
                     <span className="rounded bg-[#E1E4EE] px-2 py-0.5 text-xs font-semibold text-[#14213D]">
                       {selectedReport.category}
                     </span>
+                    {selectedReport.aiCategory && selectedReport.category !== selectedReport.aiCategory && (
+                      <span className="flex items-center gap-1 rounded bg-amber-50 border border-amber-200 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">
+                        <AlertTriangle className="h-2.5 w-2.5" />
+                        Modified
+                      </span>
+                    )}
                   </div>
-                  <div className="mt-1 text-xs text-[#5A6279]">
-                    Submitted {formatDate(selectedReport.createdAt, lang)}
+                  <div className="flex items-center gap-3 text-xs text-[#5A6279]">
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {formatDate(selectedReport.createdAt, lang)}
+                    </span>
+                    {selectedReport.zoneId && (
+                      <span className="flex items-center gap-1 font-bold text-[#1F7A8C]">
+                        <Building2 className="h-3 w-3" />
+                        {zones.find(z => z.id === selectedReport.zoneId)?.name || 'Unzoned'}
+                      </span>
+                    )}
                   </div>
+                  {selectedReport.locality && (
+                    <div className="text-[10px] text-[#5A6279] font-medium italic">
+                      Near: {selectedReport.locality}
+                    </div>
+                  )}
                 </div>
 
                 <div className="text-right">
@@ -617,6 +967,57 @@ export const AuthorityView: React.FC<AuthorityViewProps> = ({
                     {selectedReport.priorityBand} ({selectedReport.priorityScore})
                   </span>
                 </div>
+              </div>
+
+              {/* Category Override Form */}
+              <div className="rounded-xl border border-[#E1E4EE] bg-[#F7F5F0]/30 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-[10px] font-black uppercase tracking-wider text-[#5A6279]">Classification Management</h4>
+                  {selectedReport.aiCategory && (
+                    <span className="text-[10px] text-[#5A6279]">
+                      AI suggested: <span className="font-bold text-[#14213D]">{selectedReport.aiCategory}</span>
+                    </span>
+                  )}
+                </div>
+                
+                <form onSubmit={handleUpdateCategory} className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-[#5A6279]">Set Category</label>
+                      <select
+                        value={newCategory}
+                        onChange={(e) => setNewCategory(e.target.value as Category)}
+                        className="w-full h-9 rounded-lg border border-[#E1E4EE] bg-white px-2 text-xs font-semibold focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+                      >
+                        {['Waterlogging', 'Road damage', 'Garbage', 'Streetlight', 'Drainage', 'Other'].map(cat => (
+                          <option key={cat} value={cat}>{cat}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-[#5A6279]">Reason for change</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Visual verification..."
+                        value={categoryReason}
+                        onChange={(e) => setCategoryReason(e.target.value)}
+                        className="w-full h-9 rounded-lg border border-[#E1E4EE] bg-white px-3 text-xs focus:ring-2 focus:ring-[#1F7A8C] focus:outline-hidden"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={updatingCategory || newCategory === selectedReport.category}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#14213D] py-2 text-xs font-bold text-white transition hover:bg-[#1F7A8C] disabled:opacity-30"
+                  >
+                    {updatingCategory ? (
+                      <RefreshCw className="h-3 w-3 animate-spin" />
+                    ) : (
+                      <CheckCircle2 className="h-3 w-3" />
+                    )}
+                    <span>Apply Classification Override</span>
+                  </button>
+                </form>
               </div>
 
               {/* Original Text & Multilingual Comparison */}

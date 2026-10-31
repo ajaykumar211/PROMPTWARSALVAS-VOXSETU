@@ -139,7 +139,7 @@ export function LoginScreen({
       </div>
 
       {/* Main Centred Card */}
-      <div className="w-full max-w-[420px] rounded-3xl border border-[#E1E4EE]/80 bg-[#FFFFFF] p-6 sm:p-8 shadow-xl shadow-black/5">
+      <div className="w-full max-w-[420px] rounded-3xl border border-[#E1E4EE]/80 bg-[#FFFFFF] p-5 sm:p-8 shadow-xl shadow-black/5">
         {/* Brand Header */}
         <div className="text-center space-y-2 mb-6">
           {/* Logo SVG: Speech bubble with bridge arch at bottom */}

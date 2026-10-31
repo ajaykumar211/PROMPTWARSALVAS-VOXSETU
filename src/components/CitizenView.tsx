@@ -624,9 +624,9 @@ export const CitizenView: React.FC<CitizenViewProps> = ({
                 if (onSetTrackCode) onSetTrackCode(submissionResult.trackingCode);
                 setActiveTab('track');
               }}
-              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#1F7A8C] px-6 text-sm font-bold text-white shadow-xs hover:bg-[#196372]"
+              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#1F7A8C] px-6 text-sm font-bold text-white shadow-xs hover:bg-[#196372] transition cursor-pointer"
             >
-              <span>Go to Live Tracker</span>
+              <span>{t(lang, 'go_to_tracker') || 'Go to Tracker'}</span>
               <ArrowRight className="h-4 w-4" />
             </button>
             <button
@@ -636,9 +636,9 @@ export const CitizenView: React.FC<CitizenViewProps> = ({
                 setDescription('');
                 setImageDataUrl(null);
               }}
-              className="flex h-12 items-center justify-center rounded-xl border border-[#E1E4EE] bg-white px-6 text-sm font-semibold text-[#5A6279] hover:bg-[#F7F5F0]"
+              className="flex h-12 items-center justify-center rounded-xl border border-[#E1E4EE] bg-white px-6 text-sm font-semibold text-[#5A6279] hover:bg-[#F7F5F0] transition cursor-pointer"
             >
-              Report Another Issue
+              {t(lang, 'report_another') || 'Report Another'}
             </button>
           </div>
         </div>
